@@ -1,0 +1,8 @@
+apply from: 'buildsystem/dependencies.gradle'
+
+allprojects{
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    sourceCompatibility = 1.8
+}
