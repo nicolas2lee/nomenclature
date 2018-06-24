@@ -1,0 +1,1 @@
+CREATE SCHEMA `nomenclature` DEFAULT CHARACTER SET big5 ;

@@ -5,8 +5,11 @@ allprojects {
 }
 
 ext {
-    //Development
     springBootVersion = '2.0.3.RELEASE'
+
+    springBootStarterDependency = "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+    //Development
+
     //Testing
 
     //Development
@@ -17,13 +20,14 @@ ext {
     ]
 
     infraDependencies = [
+            springBootStarter: springBootStarterDependency
     ]
 
     infraTestDependencies = [
     ]
 
     webServicesDependencies = [
-            springBootStarter: "org.springframework.boot:spring-boot-starter:${springBootVersion}",
+            springBootStarter: springBootStarterDependency,
             springBootStarterWebFlux: "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}",
     ]
 
