@@ -6,14 +6,23 @@ allprojects {
 
 ext {
     springBootVersion = '2.0.3.RELEASE'
+    lombokVersion = '1.18.0'
 
-    springBootStarterDependency = "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+    junitVersion = '4.12'
+    mockitoVersion = '1.10.19'
+
     //Development
+    springBootStarterDependency = "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+    lombokDependency = "org.projectlombok:lombok:${lombokVersion}"
+
 
     //Testing
+    junitDependency =  "junit:junit:${junitVersion}"
+    mockitoDependency = 'org.mockito:mockito-all:${mockitoVersion}'
 
-    //Development
+
     domainDependencies = [
+            lombok: lombokDependency,
     ]
 
     domainTestDependencies = [
@@ -32,6 +41,7 @@ ext {
     ]
 
     webServicesTestDependencies = [
-
+            junit: junitDependency,
+            mockito: mockitoDependency
     ]
 }

@@ -14,8 +14,9 @@ dependencies {
     compile project (':domain')
     compile project (':infrastructure')
 
-
     compile webServicesDependencies.springBootStarter
     compile webServicesDependencies.springBootStarterWebFlux
+
+    testCompile webServicesTestDependencies.junit
 
 }
