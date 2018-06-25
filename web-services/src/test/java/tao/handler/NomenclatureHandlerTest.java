@@ -1,24 +1,46 @@
 package tao.handler;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.reactive.server.WebTestClient;
+import org.mockito.Mock;
+import tao.core.NomenclatureService;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
-// TODO: 25/06/2018 need to fix how to test functional endpoint
-@RunWith(SpringRunner.class)
-@WebFluxTest(NomenclatureHandler.class)
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class NomenclatureHandlerTest {
 
-    @Autowired
-    private WebTestClient webClient;
+    private NomenclatureHandler nomenclatureHandler;
+
+    @Mock
+    private NomenclatureService nomenclatureService;
+
+    @Before
+    public void setUp() throws Exception {
+        nomenclatureHandler = new NomenclatureHandler(nomenclatureService);
+    }
 
     @Test
-    public void should_return_success_code() {
-        webClient.get().uri("/api/v1/pays").exchange()
-                .expectStatus().isOk();
+    public void should_return_empty_list_when_sortField_is_not_present_in_request() {
+        List<String> result = nomenclatureHandler.getQueriedSelectedFields(Optional.empty());
+
+        assertThat(result).isEqualTo(Collections.emptyList());
+    }
+
+    @Test
+    public void should_return_string_list_when_sortField_is_present_in_request() {
+        List<String> result = nomenclatureHandler.getQueriedSelectedFields(Optional.of("a,b,c"));
+
+        assertThat(result).hasSize(3);
+    }
+
+    @Test
+    public void should_return_string_list_with_one_element_when_sortField_is_present_and_only_one_field_in_request() {
+        List<String> result = nomenclatureHandler.getQueriedSelectedFields(Optional.of("a"));
+
+        assertThat(result).hasSize(1);
     }
 }
