@@ -16,4 +16,7 @@ dependencies {
     def domainTestDependencies = rootProject.ext.domainTestDependencies
 
     compileOnly domainDependencies.lombok
+
+    testCompile domainTestDependencies.cucumber
+    testCompile domainTestDependencies.cucumberJava8
 }

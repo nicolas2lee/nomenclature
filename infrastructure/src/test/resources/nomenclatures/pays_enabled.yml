@@ -1,0 +1,81 @@
+#le nom de la ressource telle que exposée dans les URI
+#c'est aussi le nom du fichier ({resourceName}.yaml)
+resourceName: pays
+
+#Nomenclature opérationnelle ?
+enbled: 1
+
+#Le nom technique de la table
+dbTable: t_pays
+
+#Le nom du champs clé primaire
+pk: code
+
+#les attributs retournés dans les appels REST.
+#à gauche le nom tel que présent dans le retour
+#à droite le nom technique dans la table
+output:
+  #l'attribut id est un nom standard pour définir l'identifiant d'une ressource.
+  id: code
+  #Les autres sorties se déclarent sous la forme attributeName : dbColumunName
+  #il est possible de choisir les attributs souhaités en sortie lors de la requête.
+  countryShortName: nom_pays_court
+  countryCodeLen2: code_pays_2
+  countryCodeLen3: code_pays_3
+  countryNumCode: pays_numero
+  countryLanguage: pays_langue
+  language: lang
+  countryContinentId: pays_continent_id
+
+#pagination. Optionnel. Par défaut, pas de pagination
+#nombre d'éléments par page. N'opère que si enable à true
+paging:
+  enabled: 1
+  packet: 50
+
+#Tri. Optionnel. Par défaut pas de tri possible
+sort:
+  enabled: 1
+  #Nom de la ressource sur laquelle le tri s'applique
+  fields:
+    - id #la première est la valeur par défaut
+    - countryShortName
+    - countryCodeLen2
+  #Sens permis pour le tri
+  sens:
+    - ASC #la première est la valeur par défaut
+    - DESC
+
+#Filtre. Optionnel. Par défaut à inactif "0".
+#Il s'agit de permettre ou pas l'appelant de sélectioner les données qu'il souhaite en sortie parmi les ttributs déclarés dans output
+enabledFieldsSelection: 1
+
+#Optionnel. Par défaut aucune clause.
+clause:
+  #Etat de l'élément. Le nom technique de la table et la valeur imposée lors de la récupération
+  - name: status
+    values:
+      - 0
+      - 1
+  - name: lang
+    values:
+      - FR
+      - EN
+
+cache:
+  #actif à 1. Lorsqu'il est non actif, le service requête la base de données maître lors de chaque demande. A inactif, le service utilise sa base mémoire H2.
+  enabled: 1
+  #La durée (seconde) de validité de la table H2. Au dela de cette durée, le système requête la base principale.
+  expiration: 60
+
+#Rajoute dans le retour prévu, le nombre d'élément au total et le nombre d'éléments retournés
+summary:
+  enabled: 1
+  nbElementsAttributeName: "returned"
+  totalAttributeName: "total"
+
+#Les formats d'exposition (retour) acceptés. Les formats tolérés sont json, xml, csv
+produces:
+  - json
+  - xml
+  - csv

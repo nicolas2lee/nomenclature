@@ -1,15 +1,21 @@
 package tao.core.model;
 
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
 import java.util.Map;
 
 @Getter
-class Nomenclature {
+@Builder
+public class Nomenclature {
+
+    public static final Nomenclature NONE = Nomenclature.builder().resourceName("unavailable resource").enabled(false).build();
+
     private String resourceName;
-    private String enabled;
+    @Getter(AccessLevel.NONE) private Boolean enabled;
     private String databaseTable;
     private String primaryKey;
     private Map<String, String> output;
@@ -20,4 +26,8 @@ class Nomenclature {
     private Cache cache;
     private Summary summary;
     private List<String> produces;
+
+    public Boolean isEnabled(){
+        return this.enabled;
+    }
 }

@@ -1,6 +1,9 @@
 package tao.core.model;
 
-class Paging {
+import lombok.Builder;
+
+@Builder
+public class Paging {
     private String enabled;
     private String packet;
 }

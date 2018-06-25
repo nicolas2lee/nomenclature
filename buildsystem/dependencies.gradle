@@ -7,18 +7,24 @@ allprojects {
 ext {
     springBootVersion = '2.0.3.RELEASE'
     lombokVersion = '1.18.0'
+    jacksonVersion = '2.9.6'
 
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
+    cucumberVersion = '1.2.5'
+    assertjVersion = '3.10.0'
 
     //Development
     springBootStarterDependency = "org.springframework.boot:spring-boot-starter:${springBootVersion}"
     lombokDependency = "org.projectlombok:lombok:${lombokVersion}"
-
+    jacksonCoreDependency = "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+    jacksonYamlDependency = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${jacksonVersion}"
 
     //Testing
     junitDependency =  "junit:junit:${junitVersion}"
-    mockitoDependency = 'org.mockito:mockito-all:${mockitoVersion}'
+    mockitoDependency = "org.mockito:mockito-all:${mockitoVersion}"
+    springBootTestDependency = "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    assertjDependency = "org.assertj:assertj-core:${assertjVersion}"
 
 
     domainDependencies = [
@@ -26,13 +32,21 @@ ext {
     ]
 
     domainTestDependencies = [
+            junit: junitDependency,
+            cucumber:   "info.cukes:cucumber-junit:${cucumberVersion}",
+            cucumberJava8: "info.cukes:cucumber-java8:${cucumberVersion}"
     ]
 
     infraDependencies = [
-            springBootStarter: springBootStarterDependency
+            lombok: lombokDependency,
+            springBootStarter: springBootStarterDependency,
+            jacksonCore: jacksonCoreDependency,
+            jacksonYaml: jacksonYamlDependency
     ]
 
     infraTestDependencies = [
+            junit: junitDependency,
+            assertj: assertjDependency
     ]
 
     webServicesDependencies = [
@@ -42,6 +56,7 @@ ext {
 
     webServicesTestDependencies = [
             junit: junitDependency,
-            mockito: mockitoDependency
+            mockito: mockitoDependency,
+            springBootTest: springBootTestDependency
     ]
 }

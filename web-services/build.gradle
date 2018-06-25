@@ -18,5 +18,7 @@ dependencies {
     compile webServicesDependencies.springBootStarterWebFlux
 
     testCompile webServicesTestDependencies.junit
+    testCompile webServicesTestDependencies.mockito
+    testCompile webServicesTestDependencies.springBootTest
 
 }

@@ -13,5 +13,16 @@ repositories {
 
 dependencies {
     def infraDependencies = rootProject.ext.infraDependencies
+    def infraTestDependencies = rootProject.ext.infraTestDependencies
+
+    compile project (':domain')
+
+    compileOnly infraDependencies.lombok
+    compile infraDependencies.springBootStarter
+    compile infraDependencies.jacksonCore
+    compile infraDependencies.jacksonYaml
+
+    testCompile infraTestDependencies.junit
+    testCompile infraTestDependencies.assertj
 
 }
