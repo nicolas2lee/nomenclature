@@ -8,6 +8,7 @@ ext {
     springBootVersion = '2.0.3.RELEASE'
     lombokVersion = '1.18.0'
     jacksonVersion = '2.9.6'
+    javaInjectVersion = '1'
 
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
@@ -29,12 +30,15 @@ ext {
 
     domainDependencies = [
             lombok: lombokDependency,
+            javaxInject: "javax.inject:javax.inject:${javaInjectVersion}"
+
     ]
 
     domainTestDependencies = [
             junit: junitDependency,
             cucumber:   "info.cukes:cucumber-junit:${cucumberVersion}",
-            cucumberJava8: "info.cukes:cucumber-java8:${cucumberVersion}"
+            cucumberJava8: "info.cukes:cucumber-java8:${cucumberVersion}",
+            assertj: assertjDependency
     ]
 
     infraDependencies = [

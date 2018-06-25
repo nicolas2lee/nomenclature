@@ -5,7 +5,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,14 +29,5 @@ public class Nomenclature {
 
     public Boolean isEnabled(){
         return this.enabled;
-    }
-
-    @Builder
-    public static class QueryParameters{
-        private Map<String, String> selectedFields;
-        private String sortField;
-        private String sortDirection;
-        private String pagingPacket;
-        private String offset;
     }
 }
