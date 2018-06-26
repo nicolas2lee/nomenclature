@@ -1,11 +1,5 @@
-allprojects {
-    repositories {
-        mavenCentral()
-    }
-}
-
 ext {
-    springBootVersion = '2.0.3.RELEASE'
+    //springBootVersion = '2.0.3.RELEASE'
     lombokVersion = '1.18.0'
     jacksonVersion = '2.9.6'
     javaInjectVersion = '1'
@@ -18,9 +12,10 @@ ext {
     cucumberVersion = '1.2.5'
     assertjVersion = '3.10.0'
     h2Version = '1.4.197'
+    mysqlVersion = '8.0.11'
 
     //Development
-    springBootStarterDependency = "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+    springBootStarterDependency = "org.springframework.boot:spring-boot-starter"
     lombokDependency = "org.projectlombok:lombok:${lombokVersion}"
     jacksonCoreDependency = "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     jacksonYamlDependency = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${jacksonVersion}"
@@ -28,7 +23,7 @@ ext {
     //Testing
     junitDependency =  "junit:junit:${junitVersion}"
     mockitoDependency = "org.mockito:mockito-all:${mockitoVersion}"
-    springBootTestDependency = "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    springBootTestDependency = "org.springframework.boot:spring-boot-starter-test"
     assertjDependency = "org.assertj:assertj-core:${assertjVersion}"
 
 
@@ -51,7 +46,8 @@ ext {
             springBootStarter: springBootStarterDependency,
             jacksonCore: jacksonCoreDependency,
             jacksonYaml: jacksonYamlDependency,
-            mybatisSpringBoot: "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootVersion}"
+            mybatisSpringBoot: "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootVersion}",
+            mysql: "mysql:mysql-connector-java:${mysqlVersion}"
     ]
 
     infraTestDependencies = [
@@ -65,7 +61,7 @@ ext {
 
     webServicesDependencies = [
             springBootStarter: springBootStarterDependency,
-            springBootStarterWebFlux: "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}",
+            springBootStarterWebFlux: "org.springframework.boot:spring-boot-starter-webflux",
     ]
 
     webServicesTestDependencies = [
@@ -74,3 +70,7 @@ ext {
             springBootTest: springBootTestDependency
     ]
 }
+
+/*springBoot {
+    mainClassName = 'tao.Application'
+}*/
