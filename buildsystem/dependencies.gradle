@@ -9,6 +9,8 @@ ext {
     lombokVersion = '1.18.0'
     jacksonVersion = '2.9.6'
     javaInjectVersion = '1'
+    //TODO should check the logback version in domain & the version in spring boot
+    logbackVersion = '1.2.3'
 
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
@@ -30,7 +32,8 @@ ext {
 
     domainDependencies = [
             lombok: lombokDependency,
-            javaxInject: "javax.inject:javax.inject:${javaInjectVersion}"
+            javaxInject: "javax.inject:javax.inject:${javaInjectVersion}",
+            logback: "ch.qos.logback:logback-classic:${logbackVersion}"
 
     ]
 
