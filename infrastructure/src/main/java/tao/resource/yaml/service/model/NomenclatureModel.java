@@ -1,4 +1,4 @@
-package tao.resource.yaml.service.entity;
+package tao.resource.yaml.service.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,18 +9,18 @@ import java.util.Map;
 
 @Getter
 @NoArgsConstructor
-public class NomenclatureEntity {
+public class NomenclatureModel {
     private String resourceName;
     private String enbled;
     private String dbTable;
     private String pk;
     private Map<String, String> output;
-    private PagingEntity paging;
-    private SortEntity sort;
+    private PagingModel paging;
+    private SortModel sort;
     private String enabledFieldsSelection;
-    private List<ClauseEntity> clause;
-    private CacheEntity cache;
-    private SummaryEntity summary;
+    private List<ClauseModel> clause;
+    private CacheModel cache;
+    private SummaryModel summary;
     private List<String> produces;
 
     public Nomenclature toDomainObject(){

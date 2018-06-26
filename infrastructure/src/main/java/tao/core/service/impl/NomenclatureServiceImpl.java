@@ -1,4 +1,4 @@
-package tao.resource.yaml.service.impl;
+package tao.core.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -6,10 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import tao.core.NomenclatureService;
+import tao.core.mapper.ItemMapper;
 import tao.core.model.Nomenclature;
 import tao.core.model.QueryParameters;
 import tao.resource.exception.ResourceNotFoundException;
-import tao.resource.yaml.service.entity.NomenclatureEntity;
+import tao.resource.yaml.service.model.NomenclatureModel;
 
 import java.io.File;
 import java.util.Collections;
@@ -23,6 +24,11 @@ public class NomenclatureServiceImpl implements NomenclatureService {
     private static final Logger LOGGER = LoggerFactory.getLogger(NomenclatureServiceImpl.class);
     private static final String ErrorCode = "Err.00001";
     private static Nomenclature nomenclature;
+    private final ItemMapper itemMapper;
+
+    NomenclatureServiceImpl(ItemMapper itemMapper) {
+        this.itemMapper = itemMapper;
+    }
 
     @Override
     public Optional<Nomenclature> getDefaultNomenclatureConfig(final String name) {
@@ -32,7 +38,7 @@ public class NomenclatureServiceImpl implements NomenclatureService {
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
             try {
                 final File file = new File(getClass().getClassLoader().getResource(ymlFilePath).getFile());
-                nomenclature = mapper.readValue(file, NomenclatureEntity.class).toDomainObject();
+                nomenclature = mapper.readValue(file, NomenclatureModel.class).toDomainObject();
                 if (!nomenclature.isEnabled()) return Optional.empty();
             } catch (Exception e) {
                 throw new ResourceNotFoundException(ErrorCode, String.format("Mapping Error with [%s] resource: %s", name, e.getMessage()));

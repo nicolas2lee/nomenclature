@@ -21,8 +21,13 @@ dependencies {
     compile infraDependencies.springBootStarter
     compile infraDependencies.jacksonCore
     compile infraDependencies.jacksonYaml
+    compile infraDependencies.mybatisSpringBoot
+
+    testCompile infraTestDependencies.h2
 
     testCompile infraTestDependencies.junit
     testCompile infraTestDependencies.assertj
+    testCompile infraTestDependencies.springBootTest
+    testCompile infraTestDependencies.mybatisSpringBootTest
 
 }

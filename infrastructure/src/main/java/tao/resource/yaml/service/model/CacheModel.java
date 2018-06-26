@@ -1,9 +1,9 @@
-package tao.resource.yaml.service.entity;
+package tao.resource.yaml.service.model;
 
 import lombok.Getter;
 
 @Getter
-class CacheEntity {
+class CacheModel {
     private String enabled;
     private String expiration;
 }

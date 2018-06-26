@@ -1,11 +1,11 @@
-package tao.resource.yaml.service.entity;
+package tao.resource.yaml.service.model;
 
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-class ClauseEntity {
+class ClauseModel {
     private String name;
     private List<String> values;
 }

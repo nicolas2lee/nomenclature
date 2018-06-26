@@ -1,10 +1,10 @@
-package tao.resource.yaml.service.entity;
+package tao.resource.yaml.service.model;
 
 import lombok.Getter;
 import tao.core.model.Paging;
 
 @Getter
-class PagingEntity {
+class PagingModel {
     private String enabled;
     private String packet;
 

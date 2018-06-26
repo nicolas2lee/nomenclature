@@ -10,7 +10,6 @@ import tao.core.model.Sort;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -47,10 +46,8 @@ class QueryParametersFactoryImpl implements QueryParametersFactory {
 
     private Predicate<String> isPositive() {
         return s -> {
-            BigDecimal number;
             try {
-                number = new BigDecimal(s);
-                return number.signum() > 0;
+                return Integer.valueOf(s) > 0;
             } catch (NumberFormatException e) {
                 LOGGER.error(String.format("Could not convert string value %s to bigdecimal with exception %s", s, e.getMessage()));
                 return false;
