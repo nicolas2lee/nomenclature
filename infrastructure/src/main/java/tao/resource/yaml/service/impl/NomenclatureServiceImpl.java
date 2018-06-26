@@ -7,10 +7,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import tao.core.NomenclatureService;
 import tao.core.model.Nomenclature;
+import tao.core.model.QueryParameters;
 import tao.resource.exception.ResourceNotFoundException;
 import tao.resource.yaml.service.entity.NomenclatureEntity;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -21,7 +25,7 @@ public class NomenclatureServiceImpl implements NomenclatureService {
     private static Nomenclature nomenclature;
 
     @Override
-    public Optional<Nomenclature> getNomenclature(final String name) {
+    public Optional<Nomenclature> getDefaultNomenclatureConfig(final String name) {
         if (nomenclature == null || !nomenclature.getResourceName().equals(name)) {
             final String ymlFilePath = String.format("nomenclatures/%s.yml", name );
             LOGGER.info(String.format("Loading yam file : %s", ymlFilePath));
@@ -35,5 +39,10 @@ public class NomenclatureServiceImpl implements NomenclatureService {
             }
         }
         return Optional.of(nomenclature);
+    }
+
+    @Override
+    public List<Map> getAllItems(final QueryParameters queryParameters, final Nomenclature defaultNomenclatureConfig) {
+        return Collections.emptyList();
     }
 }

@@ -26,12 +26,12 @@ class QueryParametersFactoryImpl implements QueryParametersFactory {
     }
 
     @Override
-    public QueryParameters create(QueryParameters.UserRequest userRequest, Nomenclature defaultConfig) {
-        final Sort defaultSort = defaultConfig.getSort();
-        final Paging defaultPaging = defaultConfig.getPaging();
+    public QueryParameters create(QueryParameters.UserRequest userRequest, Nomenclature defaultNomenclatureConfig) {
+        final Sort defaultSort = defaultNomenclatureConfig.getSort();
+        final Paging defaultPaging = defaultNomenclatureConfig.getPaging();
         return QueryParameters.builder()
                 //25/06/2018 current is for sortField=field1,field2,field3
-                .selectedFields(fixSelectedFields(extractSelectedFields(userRequest.getSelectedFields()), defaultConfig.getOutput()))
+                .selectedFields(fixSelectedFields(extractSelectedFields(userRequest.getSelectedFields()), defaultNomenclatureConfig.getOutput()))
                 .sortField(fixSort(userRequest.getSortField(), defaultSort.getFields()))
                 .sortDirection(fixSort(userRequest.getSortDirection(), defaultSort.getDirection()))
                 .pagingPacket(fixPagingNumber(userRequest.getPagingPacket(), defaultPaging.getPacket()))

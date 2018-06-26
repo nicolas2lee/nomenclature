@@ -5,5 +5,5 @@ import tao.core.model.QueryParameters;
 
 public interface QueryParametersFactory {
     QueryParameters create(QueryParameters.UserRequest userRequest,
-                           Nomenclature defaultConfig);
+                           Nomenclature defaultNomenclatureConfig);
 }

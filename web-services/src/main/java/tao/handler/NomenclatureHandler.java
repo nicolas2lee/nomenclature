@@ -12,6 +12,9 @@ import tao.core.QueryParametersFactory;
 import tao.core.model.Nomenclature;
 import tao.core.model.QueryParameters;
 
+import java.util.List;
+import java.util.Map;
+
 @Component
 public class NomenclatureHandler {
     //https://blog.csdn.net/sxdtzhaoxinguo/article/details/79235998
@@ -35,18 +38,18 @@ public class NomenclatureHandler {
 
     public Mono<ServerResponse> list(final ServerRequest request){
         LOGGER.info(String.format("%s %s", request.methodName(), request.path()));
-        Nomenclature nomenclature = nomenclatureService.getNomenclature(request.pathVariable("nomenclatureName"))
+        final Nomenclature defaultNomenclatureConfig = nomenclatureService.getDefaultNomenclatureConfig(request.pathVariable("nomenclatureName"))
                 .orElse(Nomenclature.NONE);
+        final QueryParameters queryParameters = buildNomenclatureQueryParameters(request, defaultNomenclatureConfig);
 
-        QueryParameters queryParameters = buildNomenclatureQueryParameters(request, nomenclature);
+        List<Map> items = nomenclatureService.getAllItems(queryParameters, defaultNomenclatureConfig);
 
         return ServerResponse.ok().body(Flux.range(1, 1000000000).map(x-> String.valueOf(x)), String.class);
     }
 
-    private QueryParameters buildNomenclatureQueryParameters(final ServerRequest request, final Nomenclature nomenclature) {
-
+    private QueryParameters buildNomenclatureQueryParameters(final ServerRequest request, final Nomenclature defaultNomenclatureConfig) {
         final QueryParameters.UserRequest userRequest = buildUserRequestQueryParameters(request);
-        return queryParametersFactory.create(userRequest, nomenclature);
+        return queryParametersFactory.create(userRequest, defaultNomenclatureConfig);
     }
 
     private QueryParameters.UserRequest buildUserRequestQueryParameters(final ServerRequest request) {
