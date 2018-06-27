@@ -10,7 +10,7 @@ class PagingModel {
 
     public Paging toDomainObject(){
         return Paging.builder()
-                .enabled(enabled)
+                .enabled(enabled.equals("1"))
                 .packet(packet)
                 .build();
     }

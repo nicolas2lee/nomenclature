@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface NomenclatureService {
     Optional<Nomenclature> getDefaultNomenclatureConfig(final String name);
 
-    List<Map> getAllItems(final QueryParameters queryParameters, final Nomenclature defaultNomenclatureConfig);
+    List<Map<String, Object>> getAllItems(final QueryParameters queryParameters, final Nomenclature defaultNomenclatureConfig);
 }

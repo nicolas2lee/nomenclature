@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Builder
+@Getter
 public class QueryParameters {
     private Map<String, String> selectedFields;
     private String sortField;

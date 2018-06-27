@@ -11,6 +11,12 @@ import java.util.Map;
 public interface ItemMapper {
 
     // TODO: 26/06/2018 need to avoid sql injection, need pre process tableName
-    @Select("SELECT * FROM ${tableName}")
-    List<Map<String, Object>> get(@Param("tableName") String tableName);
+    @Select("SELECT ${selectedFields} FROM ${tableName} WHERE ${whereClause} order by ${orderByField} ${orderByDirection} ${limitClause}")
+    List<Map<String, Object>> getAll(@Param("selectedFields") String selectedFields,
+                                     @Param("tableName") String tableName,
+                                     @Param("whereClause") String whereClause,
+                                     @Param("orderByField") String orderByField,
+                                     @Param("orderByDirection") String orderByDirection,
+                                     @Param("limitClause") String limitClause
+    );
 }

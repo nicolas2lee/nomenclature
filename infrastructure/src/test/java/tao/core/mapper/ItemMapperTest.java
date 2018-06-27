@@ -15,6 +15,6 @@ public class ItemMapperTest {
 
     @Test
     public void should_return_data() {
-        itemMapper.get("city");
+        //itemMapper.getAll("h","city");
     }
 }
