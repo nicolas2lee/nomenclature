@@ -1,3 +1,6 @@
+plugins{
+    id 'net.ltgt.apt' version '0.8'
+}
 
 group 'tao'
 version '1.0-SNAPSHOT'
@@ -14,9 +17,11 @@ dependencies {
     compile infraDependencies.jacksonYaml
     compile infraDependencies.mybatisSpringBoot
     compile infraDependencies.mysql
+    compile infraDependencies.mapstruct
+
+    apt infraDependencies.mapstructProcessor
 
     testCompile infraTestDependencies.h2
-
     testCompile infraTestDependencies.junit
     testCompile infraTestDependencies.assertj
     testCompile infraTestDependencies.springBootTest

@@ -1,4 +1,4 @@
-package tao.core.mapper;
+package tao.core.repositorymapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @Mapper
-public interface ItemMapper {
+public interface ItemRepositoryMapper {
 
     // TODO: 26/06/2018 need to avoid sql injection, need pre process tableName
     @Select("SELECT ${selectedFields} FROM ${tableName} WHERE ${whereClause} order by ${orderByField} ${orderByDirection} ${limitClause}")

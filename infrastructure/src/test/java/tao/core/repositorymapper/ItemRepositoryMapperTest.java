@@ -1,4 +1,4 @@
-package tao.core.mapper;
+package tao.core.repositorymapper;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,13 +8,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @MybatisTest
-public class ItemMapperTest {
+public class ItemRepositoryMapperTest {
 
     @Autowired
-    private ItemMapper itemMapper;
+    private ItemRepositoryMapper itemRepositoryMapper;
 
     @Test
     public void should_return_data() {
-        //itemMapper.getAll("h","city");
+        //itemRepositoryMapper.getAll("h","city");
     }
 }

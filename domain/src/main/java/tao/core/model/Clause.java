@@ -3,9 +3,11 @@ package tao.core.model;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 @Builder
 public class Clause {
     private String name;
-    private String[] values;
+    private List<String> values;
 }

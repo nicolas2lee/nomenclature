@@ -50,7 +50,7 @@ sort:
 #Il s'agit de permettre ou pas l'appelant de sélectioner les données qu'il souhaite en sortie parmi les ttributs déclarés dans output
 enabledFieldsSelection: 1
 
-#Optionnel. Par défaut aucune clause.
+#Optionnel. Par défaut aucune clauses.
 clause:
   #Etat de l'élément. Le nom technique de la table et la valeur imposée lors de la récupération
   - name: status

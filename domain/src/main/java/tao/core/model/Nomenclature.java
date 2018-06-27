@@ -4,12 +4,14 @@ package tao.core.model;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Map;
 
 @Getter
 @Builder
+@Setter
 public class Nomenclature {
 
     public static final Nomenclature NONE = Nomenclature.builder().resourceName("unavailable resource").enabled(false).build();
@@ -22,7 +24,7 @@ public class Nomenclature {
     private Paging paging;
     private Sort sort;
     private String enabledFieldsSelection;
-    private List<Clause> clause;
+    private List<Clause> clauses;
     private Cache cache;
     private Summary summary;
     private List<String> produces;

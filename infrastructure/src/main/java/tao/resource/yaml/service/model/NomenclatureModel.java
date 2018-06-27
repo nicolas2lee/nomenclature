@@ -1,14 +1,19 @@
 package tao.resource.yaml.service.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import tao.core.model.Nomenclature;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class NomenclatureModel {
     private String resourceName;
     private String enbled;
@@ -23,7 +28,7 @@ public class NomenclatureModel {
     private SummaryModel summary;
     private List<String> produces;
 
-    public Nomenclature toDomainObject(){
+    public Nomenclature toDomain() {
         return Nomenclature.builder()
                 .resourceName(resourceName)
                 .enabled(enbled.equals("1"))
@@ -31,11 +36,11 @@ public class NomenclatureModel {
                 .primaryKey(pk)
                 .output(output)
                 .paging(paging.toDomainObject())
-                //.sort()
+                .sort(sort.toDomain())
                 .enabledFieldsSelection(enabledFieldsSelection)
-                //.clause()
-                //.cache()
-                //.summary()
+                .clauses(clause.stream().map(ClauseModel::toDomain).collect(Collectors.toList()))
+                .cache(cache.toDomain())
+                .summary(summary.toDomain())
                 .produces(produces)
                 .build();
     }

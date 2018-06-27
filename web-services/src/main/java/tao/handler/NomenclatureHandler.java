@@ -41,8 +41,10 @@ public class NomenclatureHandler {
         final Nomenclature defaultNomenclatureConfig = nomenclatureService.getDefaultNomenclatureConfig(request.pathVariable("nomenclatureName"))
                 .orElse(Nomenclature.NONE);
         final QueryParameters queryParameters = buildNomenclatureQueryParameters(request, defaultNomenclatureConfig);
+        List<Map<String, Object>> items = nomenclatureService.getAllItems(queryParameters, defaultNomenclatureConfig);
 
-        List<Map> items = nomenclatureService.getAllItems(queryParameters, defaultNomenclatureConfig);
+        List<String> header = request.headers().header("accept");
+        header.forEach(System.out::println);
 
         return ServerResponse.ok().body(Flux.range(1, 1000000000).map(x-> String.valueOf(x)), String.class);
     }

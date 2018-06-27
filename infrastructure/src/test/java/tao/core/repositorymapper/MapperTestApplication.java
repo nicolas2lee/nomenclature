@@ -1,4 +1,4 @@
-package tao.core.mapper;
+package tao.core.repositorymapper;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

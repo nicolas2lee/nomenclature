@@ -1,7 +1,12 @@
 package tao.core.model;
 
-class Summary {
-    private String enabled;
+import lombok.Builder;
+import lombok.Getter;
+
+@Getter
+@Builder
+public class Summary {
+    private Boolean enabled;
     private String nbElementsAttributeName;
     private String totalAttributeName;
 }
