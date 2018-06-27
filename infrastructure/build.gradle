@@ -17,9 +17,6 @@ dependencies {
     compile infraDependencies.jacksonYaml
     compile infraDependencies.mybatisSpringBoot
     compile infraDependencies.mysql
-    compile infraDependencies.mapstruct
-
-    apt infraDependencies.mapstructProcessor
 
     testCompile infraTestDependencies.h2
     testCompile infraTestDependencies.junit

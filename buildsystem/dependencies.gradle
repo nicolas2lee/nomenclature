@@ -20,8 +20,6 @@ ext {
     lombokDependency = "org.projectlombok:lombok:${lombokVersion}"
     jacksonCoreDependency = "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     jacksonYamlDependency = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${jacksonVersion}"// https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor
-    mapstructDependency = "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
-    mapstructProcessorDependency = "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
 
     //Testing
@@ -52,8 +50,6 @@ ext {
             jacksonYaml: jacksonYamlDependency,
             mybatisSpringBoot: "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootVersion}",
             mysql: "mysql:mysql-connector-java:${mysqlVersion}",
-            mapstruct: mapstructDependency,
-            mapstructProcessor: mapstructProcessorDependency
     ]
 
     infraTestDependencies = [
