@@ -1,7 +1,7 @@
 package tao.resource.yaml.service.model;
 
 import lombok.Getter;
-import tao.core.model.Paging;
+import tao.features.core.model.Paging;
 
 @Getter
 class PagingModel {

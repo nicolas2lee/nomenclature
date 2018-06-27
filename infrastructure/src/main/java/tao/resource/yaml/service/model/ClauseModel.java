@@ -1,7 +1,7 @@
 package tao.resource.yaml.service.model;
 
 import lombok.Getter;
-import tao.core.model.Clause;
+import tao.features.core.model.Clause;
 
 import java.util.List;
 

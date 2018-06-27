@@ -1,7 +1,7 @@
 package tao.resource.yaml.service.model;
 
 import lombok.Getter;
-import tao.core.model.Summary;
+import tao.features.core.model.Summary;
 
 @Getter
 class SummaryModel {

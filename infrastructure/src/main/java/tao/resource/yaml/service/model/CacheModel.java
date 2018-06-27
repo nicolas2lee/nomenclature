@@ -1,7 +1,7 @@
 package tao.resource.yaml.service.model;
 
 import lombok.Getter;
-import tao.core.model.Cache;
+import tao.features.core.model.Cache;
 
 @Getter
 class CacheModel {

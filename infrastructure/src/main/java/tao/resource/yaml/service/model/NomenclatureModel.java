@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import tao.core.model.Nomenclature;
+import tao.features.core.model.Nomenclature;
 
 import java.util.List;
 import java.util.Map;

@@ -9,6 +9,7 @@ dependencies {
     compileOnly domainDependencies.lombok
     compile domainDependencies.javaxInject
     compile domainDependencies.logback
+    compile domainDependencies.simpleJson
 
     testCompile domainTestDependencies.cucumber
     testCompile domainTestDependencies.cucumberJava8

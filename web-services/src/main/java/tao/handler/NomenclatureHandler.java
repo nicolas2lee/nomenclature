@@ -5,19 +5,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import tao.core.NomenclatureService;
-import tao.core.QueryParametersFactory;
-import tao.core.model.Nomenclature;
-import tao.core.model.QueryParameters;
+import tao.features.core.NomenclatureService;
+import tao.features.core.QueryParametersFactory;
+import tao.features.core.ResponseContentProducer;
+import tao.features.core.model.Nomenclature;
+import tao.features.core.model.QueryParameters;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Component
 public class NomenclatureHandler {
-    //https://blog.csdn.net/sxdtzhaoxinguo/article/details/79235998
     private static final Logger LOGGER = LoggerFactory.getLogger(NomenclatureHandler.class);
 
     private static final String SELECTED_FIELDS_QUERY_PARAMETER = "selectedFields";
@@ -30,10 +30,14 @@ public class NomenclatureHandler {
 
     private final QueryParametersFactory queryParametersFactory;
 
+    private final ResponseContentProducer responseContentProducer;
+
     NomenclatureHandler(NomenclatureService nomenclatureService,
-                        QueryParametersFactory queryParametersFactory) {
+                        QueryParametersFactory queryParametersFactory,
+                        ResponseContentProducer responseContentProducer) {
         this.nomenclatureService = nomenclatureService;
         this.queryParametersFactory = queryParametersFactory;
+        this.responseContentProducer = responseContentProducer;
     }
 
     public Mono<ServerResponse> list(final ServerRequest request){
@@ -42,11 +46,14 @@ public class NomenclatureHandler {
                 .orElse(Nomenclature.NONE);
         final QueryParameters queryParameters = buildNomenclatureQueryParameters(request, defaultNomenclatureConfig);
         List<Map<String, Object>> items = nomenclatureService.getAllItems(queryParameters, defaultNomenclatureConfig);
-
         List<String> header = request.headers().header("accept");
-        header.forEach(System.out::println);
+        responseContentProducer.create(header);
+        Map resultMap = new HashMap();
+        resultMap.put(defaultNomenclatureConfig.getResourceName(), items);
+        final String bodyString = responseContentProducer.produce(resultMap);
+        LOGGER.debug(String.format("The response body string : %s", bodyString));
 
-        return ServerResponse.ok().body(Flux.range(1, 1000000000).map(x-> String.valueOf(x)), String.class);
+        return ServerResponse.ok().body(Mono.just(bodyString), String.class);
     }
 
     private QueryParameters buildNomenclatureQueryParameters(final ServerRequest request, final Nomenclature defaultNomenclatureConfig) {

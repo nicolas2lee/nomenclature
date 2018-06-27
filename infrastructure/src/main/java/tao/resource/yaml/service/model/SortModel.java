@@ -1,7 +1,7 @@
 package tao.resource.yaml.service.model;
 
 import lombok.Getter;
-import tao.core.model.Sort;
+import tao.features.core.model.Sort;
 
 import java.util.List;
 

@@ -6,7 +6,7 @@ ext {
     //TODO should check the logback version in domain & the version in spring boot
     logbackVersion = '1.2.3'
     mybatisSpringBootVersion = '1.3.2'
-    mapstructVersion = '1.2.0.Final'
+    simpleJsonVersion = '1.1.1'
 
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
@@ -20,6 +20,7 @@ ext {
     lombokDependency = "org.projectlombok:lombok:${lombokVersion}"
     jacksonCoreDependency = "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     jacksonYamlDependency = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${jacksonVersion}"// https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor
+    simpleJson = "com.googlecode.json-simple:json-simple:${simpleJsonVersion}"
 
 
     //Testing
@@ -32,8 +33,8 @@ ext {
     domainDependencies = [
             lombok: lombokDependency,
             javaxInject: "javax.inject:javax.inject:${javaInjectVersion}",
-            logback: "ch.qos.logback:logback-classic:${logbackVersion}"
-
+            logback: "ch.qos.logback:logback-classic:${logbackVersion}",
+            simpleJson: simpleJson
     ]
 
     domainTestDependencies = [
