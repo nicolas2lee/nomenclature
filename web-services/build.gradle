@@ -1,12 +1,5 @@
-plugins {
-    id 'org.springframework.boot' version '2.0.3.RELEASE'
-}
-
-apply plugin: 'io.spring.dependency-management'
-
-group 'tao'
-version '1.0-SNAPSHOT'
-
+apply plugin:"war"
+//TODO need to filter application.yml
 dependencies {
     def webServicesDependencies = rootProject.ext.webServicesDependencies
     def webServicesTestDependencies = rootProject.ext.webServicesTestDependencies
@@ -20,5 +13,22 @@ dependencies {
     testCompile webServicesTestDependencies.junit
     testCompile webServicesTestDependencies.mockito
     testCompile webServicesTestDependencies.springBootTest
+}
 
+configurations {
+    childJars
+}
+
+dependencies {
+    subprojects.each {
+        childJars project(it.path)
+    }
+}
+
+task fatJar(type: Jar) {
+    baseName = 'nomenclature-fatjar'
+    version = '1.0.0-SNAPSHOT'
+    dependsOn configurations.childJars
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }

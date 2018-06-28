@@ -7,6 +7,7 @@ enbled: 1
 
 #Le nom technique de la table
 dbTable: t_pays
+#t_pays; delete from t_pays where id = '1' -- a
 
 #Le nom du champs clé primaire
 pk: code

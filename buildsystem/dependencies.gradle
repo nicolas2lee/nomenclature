@@ -1,5 +1,5 @@
 ext {
-    //springBootVersion = '2.0.3.RELEASE'
+    springBootVersion = '2.0.3.RELEASE'
     lombokVersion = '1.18.0'
     jacksonVersion = '2.9.6'
     javaInjectVersion = '1'
@@ -26,7 +26,7 @@ ext {
     //Testing
     junitDependency =  "junit:junit:${junitVersion}"
     mockitoDependency = "org.mockito:mockito-all:${mockitoVersion}"
-    springBootTestDependency = "org.springframework.boot:spring-boot-starter-test"
+    springBootTestDependency = "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     assertjDependency = "org.assertj:assertj-core:${assertjVersion}"
 
 
@@ -64,7 +64,7 @@ ext {
 
     webServicesDependencies = [
             springBootStarter: springBootStarterDependency,
-            springBootStarterWebFlux: "org.springframework.boot:spring-boot-starter-webflux",
+            springBootStarterWebFlux: "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}",
     ]
 
     webServicesTestDependencies = [

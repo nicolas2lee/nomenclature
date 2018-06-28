@@ -1,7 +1,4 @@
 
-group 'tao'
-version '1.0-SNAPSHOT'
-
 dependencies {
     def domainDependencies = rootProject.ext.domainDependencies
     def domainTestDependencies = rootProject.ext.domainTestDependencies
