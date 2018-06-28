@@ -11,6 +11,7 @@ import tao.features.core.QueryParametersFactory;
 import tao.features.core.ResponseContentProducer;
 import tao.features.core.model.Nomenclature;
 import tao.features.core.model.QueryParameters;
+import tao.features.core.model.Summary;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,11 +46,16 @@ public class NomenclatureHandler {
         final Nomenclature defaultNomenclatureConfig = nomenclatureService.getDefaultNomenclatureConfig(request.pathVariable("nomenclatureName"))
                 .orElse(Nomenclature.NONE);
         final QueryParameters queryParameters = buildNomenclatureQueryParameters(request, defaultNomenclatureConfig);
-        List<Map<String, Object>> items = nomenclatureService.getAllItems(queryParameters, defaultNomenclatureConfig);
+        List<Map<String, Object>> items = nomenclatureService.getAllItemsBySortPaging(queryParameters, defaultNomenclatureConfig);
         List<String> header = request.headers().header("accept");
         responseContentProducer.create(header);
-        Map resultMap = new HashMap();
+        Map<String, Object> resultMap = new HashMap<>();
         resultMap.put(defaultNomenclatureConfig.getResourceName(), items);
+        final Summary summary = defaultNomenclatureConfig.getSummary();
+        if (summary.isEnabled()) {
+            resultMap.put(summary.getNbElementsAttributeName(), items.size());
+            resultMap.put(summary.getTotalAttributeName(), nomenclatureService.countAllItems(defaultNomenclatureConfig));
+        }
         final String bodyString = responseContentProducer.produce(resultMap);
         LOGGER.debug(String.format("The response body string : %s", bodyString));
 

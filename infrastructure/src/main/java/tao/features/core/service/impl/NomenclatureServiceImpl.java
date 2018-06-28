@@ -51,7 +51,7 @@ public class NomenclatureServiceImpl implements NomenclatureService {
     }
 
     @Override
-    public List<Map<String, Object>> getAllItems(final QueryParameters queryParameters, final Nomenclature defaultNomenclatureConfig) {
+    public List<Map<String, Object>> getAllItemsBySortPaging(final QueryParameters queryParameters, final Nomenclature defaultNomenclatureConfig) {
         String selectedFields = String.join(", ", queryParameters.getSelectedFields().keySet());
         String whereClauses = sqlHelper.buildWhereClause(defaultNomenclatureConfig.getClauses());
         String orderByFields = queryParameters.getSelectedFields().get(queryParameters.getSortField());
@@ -60,6 +60,11 @@ public class NomenclatureServiceImpl implements NomenclatureService {
         LOGGER.info(String.format("SELECT %s FROM %s WHERE %s order by %s %s %s", selectedFields, defaultNomenclatureConfig.getDatabaseTable(),
                 whereClauses, orderByFields, orderByDirection, limitClause));
         return itemRepositoryMapper.getAll(selectedFields, defaultNomenclatureConfig.getDatabaseTable(), whereClauses, orderByFields, orderByDirection, limitClause);
+    }
+
+    @Override
+    public Integer countAllItems(Nomenclature defaultConfig) {
+        return itemRepositoryMapper.count(defaultConfig.getDatabaseTable());
     }
 
 }
