@@ -30,6 +30,10 @@ public class Routes {
                         GET("/{nomenclatureName}"),
                         nomenclatureHandler::list
                 ))
+                        .and(route(
+                                GET("/{nomenclatureName}/{id}"),
+                                nomenclatureHandler::show
+                        ))
 
         );
     }

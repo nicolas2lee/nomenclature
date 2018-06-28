@@ -3,6 +3,7 @@ package tao.features.core.service.impl;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import tao.features.format.adapter.ContentTypeFactory;
 import tao.features.format.adapter.csv.CsvProducer;
 import tao.features.format.adapter.json.JsonProducer;
 import tao.features.format.adapter.xml.XmlProducer;
@@ -13,13 +14,13 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ResponseContentProducerImplTest {
+public class ResponseContentTypeFactoryImplTest {
 
-    private ResponseContentProducerImpl responseContentProducer;
+    private ResponseContentTypeFactoryImpl responseContentProducer;
 
     @Before
     public void setUp() throws Exception {
-        responseContentProducer = new ResponseContentProducerImpl();
+        responseContentProducer = new ResponseContentTypeFactoryImpl();
     }
 
     @Test
@@ -48,32 +49,32 @@ public class ResponseContentProducerImplTest {
     @Test
     public void should_return_xml_producer_when_headers_contain_application_xml() {
         List<String> list = Arrays.asList("text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
-        responseContentProducer.create(list);
+        ContentTypeFactory contentTypeFactory = responseContentProducer.create(list);
 
-        assertThat(responseContentProducer.getContentTypeFactory()).isInstanceOf(XmlProducer.class);
+        assertThat(contentTypeFactory).isInstanceOf(XmlProducer.class);
     }
 
     @Test
     public void should_return_csv_producer_when_headers_contain_text_csv() {
         List<String> list = Arrays.asList("text/html,application/xhtml+xml,text/csv;q=0.9,image/webp,image/apng,*/*;q=0.8");
-        responseContentProducer.create(list);
+        ContentTypeFactory contentTypeFactory = responseContentProducer.create(list);
 
-        assertThat(responseContentProducer.getContentTypeFactory()).isInstanceOf(CsvProducer.class);
+        assertThat(contentTypeFactory).isInstanceOf(CsvProducer.class);
     }
 
     @Test
     public void should_return_csv_producer_when_headers_contain_text_plain() {
         List<String> list = Arrays.asList("text/html,application/xhtml+xml,text/plain;q=0.9,image/webp,image/apng,*/*;q=0.8");
-        responseContentProducer.create(list);
+        ContentTypeFactory contentTypeFactory = responseContentProducer.create(list);
 
-        assertThat(responseContentProducer.getContentTypeFactory()).isInstanceOf(CsvProducer.class);
+        assertThat(contentTypeFactory).isInstanceOf(CsvProducer.class);
     }
 
     @Test
     public void should_return_json_producer_when_no_header_found() {
         List<String> list = Arrays.asList("text/html,application/xhtml+xml,text/what;q=0.9,image/webp,image/apng,*/*;q=0.8");
-        responseContentProducer.create(list);
+        ContentTypeFactory contentTypeFactory = responseContentProducer.create(list);
 
-        assertThat(responseContentProducer.getContentTypeFactory()).isInstanceOf(JsonProducer.class);
+        assertThat(contentTypeFactory).isInstanceOf(JsonProducer.class);
     }
 }

@@ -33,6 +33,7 @@ public class NomenclatureServiceImpl implements NomenclatureService {
         this.sqlHelper = sqlHelper;
     }
 
+    // TODO: 28/06/2018 this service should be singleton and out of service scope
     @Override
     public Optional<Nomenclature> getDefaultNomenclatureConfig(final String name) {
         if (nomenclature == null || !nomenclature.getResourceName().equals(name)) {
@@ -52,11 +53,11 @@ public class NomenclatureServiceImpl implements NomenclatureService {
 
     @Override
     public List<Map<String, Object>> getAllItemsBySortPaging(final QueryParameters queryParameters, final Nomenclature defaultNomenclatureConfig) {
-        String selectedFields = String.join(", ", queryParameters.getSelectedFields().keySet());
-        String whereClauses = sqlHelper.buildWhereClause(defaultNomenclatureConfig.getClauses());
-        String orderByFields = queryParameters.getSelectedFields().get(queryParameters.getSortField());
-        String orderByDirection = queryParameters.getSortDirection();
-        String limitClause = sqlHelper.buildLimitClause(defaultNomenclatureConfig.getPaging(), queryParameters.getOffset(), queryParameters.getPagingPacket());
+        final String selectedFields = String.join(", ", queryParameters.getSelectedFields().keySet());
+        final String whereClauses = sqlHelper.buildWhereClause(defaultNomenclatureConfig.getClauses());
+        final String orderByFields = queryParameters.getSelectedFields().get(queryParameters.getSortField());
+        final String orderByDirection = queryParameters.getSortDirection();
+        final String limitClause = sqlHelper.buildLimitClause(defaultNomenclatureConfig.getPaging(), queryParameters.getOffset(), queryParameters.getPagingPacket());
         LOGGER.info(String.format("SELECT %s FROM %s WHERE %s order by %s %s %s", selectedFields, defaultNomenclatureConfig.getDatabaseTable(),
                 whereClauses, orderByFields, orderByDirection, limitClause));
         return itemRepositoryMapper.getAll(selectedFields, defaultNomenclatureConfig.getDatabaseTable(), whereClauses, orderByFields, orderByDirection, limitClause);
@@ -65,6 +66,16 @@ public class NomenclatureServiceImpl implements NomenclatureService {
     @Override
     public Integer countAllItems(Nomenclature defaultConfig) {
         return itemRepositoryMapper.count(defaultConfig.getDatabaseTable());
+    }
+
+    @Override
+    public Map<String, Object> getItemById(Nomenclature defaultConfig, String id, QueryParameters queryParameters) {
+        final String selectedFields = String.join(", ", queryParameters.getSelectedFields().keySet());
+        final String whereClauses = sqlHelper.buildWhereClause(defaultConfig.getClauses());
+        final String idConditionAddedWhereClauses = String.format("%s = %s and %s ", defaultConfig.getPrimaryKey(), id, whereClauses);
+        LOGGER.info(String.format("SELECT %s FROM %s WHERE %s ", selectedFields, defaultConfig.getDatabaseTable(),
+                idConditionAddedWhereClauses));
+        return itemRepositoryMapper.findById(selectedFields, defaultConfig.getDatabaseTable(), idConditionAddedWhereClauses);
     }
 
 }

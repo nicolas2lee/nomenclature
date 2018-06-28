@@ -25,4 +25,10 @@ public interface ItemRepositoryMapper {
     @Transactional(readOnly = true)
     @Select("SELECT count(*) FROM ${tableName}")
     Integer count(@Param("tableName") String tableName);
+
+    @Transactional(readOnly = true)
+    @Select("SELECT ${selectedFields} FROM ${tableName} WHERE ${whereClause} ")
+    Map<String, Object> findById(@Param("selectedFields") String selectedFields,
+                                 @Param("tableName") String tableName,
+                                 @Param("whereClause") String whereClause);
 }
