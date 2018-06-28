@@ -4,7 +4,7 @@ public enum MediaType {
     APPLICATION_XML_VALUE("application/xml"),
     TEXT_PLAIN_VALUE("text/plain"),
     CSV_VALUE("text/csv"),
-    APPLICATION_JSON("application/json");
+    APPLICATION_JSON_VALUE("application/json");
 
     private String value;
 

@@ -3,6 +3,7 @@ package tao.features.format.adapter.xml;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tao.features.format.adapter.ContentTypeFactory;
+import tao.features.format.adapter.MediaType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ public class XmlProducer extends ContentTypeFactory {
 
     @Override
     public String produce(Map<String, Object> items) {
+        super.setHttpContentTypeHeader(MediaType.APPLICATION_XML_VALUE.getValue());
         String type;
         List<String> finalString = new ArrayList<>();
         finalString.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");

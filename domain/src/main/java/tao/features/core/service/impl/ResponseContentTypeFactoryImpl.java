@@ -29,7 +29,7 @@ class ResponseContentTypeFactoryImpl implements ResponseContentTypeFactory {
             return ContentTypeFactory.create(MediaType.CSV_VALUE);
         if (contentTypes.contains(MediaType.TEXT_PLAIN_VALUE.getValue()))
             return ContentTypeFactory.create(MediaType.TEXT_PLAIN_VALUE);
-        return ContentTypeFactory.create(MediaType.APPLICATION_JSON);
+        return ContentTypeFactory.create(MediaType.APPLICATION_JSON_VALUE);
     }
 
     Stream<String> createStreamViaSplitComma(String header) {

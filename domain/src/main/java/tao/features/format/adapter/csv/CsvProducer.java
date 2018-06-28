@@ -1,6 +1,7 @@
 package tao.features.format.adapter.csv;
 
 import tao.features.format.adapter.ContentTypeFactory;
+import tao.features.format.adapter.MediaType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Map;
 public class CsvProducer extends ContentTypeFactory {
     @Override
     public String produce(Map<String, Object> items) {
+        super.setHttpContentTypeHeader(MediaType.TEXT_PLAIN_VALUE.getValue());
         String type;
         List<String> r;
         List<String> finalString = new ArrayList<>();

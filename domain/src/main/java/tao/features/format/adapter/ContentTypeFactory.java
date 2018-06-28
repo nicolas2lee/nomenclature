@@ -6,7 +6,10 @@ import tao.features.format.adapter.xml.XmlProducer;
 
 import java.util.Map;
 
+
 public abstract class ContentTypeFactory {
+    private String httpContentTypeHeader = "Not defined";
+
     public static ContentTypeFactory create(MediaType format) {
         switch (format) {
             case APPLICATION_XML_VALUE:
@@ -17,6 +20,14 @@ public abstract class ContentTypeFactory {
             default:
                 return new JsonProducer();
         }
+    }
+
+    public String getHttpContentTypeHeader() {
+        return httpContentTypeHeader;
+    }
+
+    public void setHttpContentTypeHeader(String httpContentTypeHeader) {
+        this.httpContentTypeHeader = httpContentTypeHeader;
     }
 
     public abstract String produce(Map<String, Object> items);

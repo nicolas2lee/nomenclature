@@ -13,6 +13,7 @@ import tao.features.core.ResponseContentTypeFactory;
 import tao.features.core.model.Nomenclature;
 import tao.features.core.model.QueryParameters;
 import tao.features.core.model.Summary;
+import tao.features.core.service.impl.NomenclatureConfig;
 import tao.features.format.adapter.ContentTypeFactory;
 
 import java.util.HashMap;
@@ -44,9 +45,10 @@ public class NomenclatureHandler {
         this.responseContentTypeFactory = responseContentTypeFactory;
     }
 
-    // TODO: 28/06/2018 should add response http header
+    // TODO: 28/06/2018 should use cache & in which scenario
     public Mono<ServerResponse> list(final ServerRequest request){
-        final Nomenclature defaultConfig = nomenclatureService.getDefaultNomenclatureConfig(request.pathVariable("nomenclatureName"))
+        final String nomenclatureName = request.pathVariable("nomenclatureName");
+        final Nomenclature defaultConfig = NomenclatureConfig.getDefaultConfig(nomenclatureName)
                 .orElse(Nomenclature.NONE);
         LOGGER.info(String.format("%s %s", request.methodName(), request.path()));
         if (!defaultConfig.equals(Nomenclature.NONE)) {
@@ -64,9 +66,9 @@ public class NomenclatureHandler {
             final String bodyString = contentTypeFactory.produce(resultMap);
             LOGGER.debug(String.format("The response body string : %s", bodyString));
 
-            return ServerResponse.ok().body(Mono.just(bodyString), String.class);
+            return ServerResponse.ok().header(contentTypeFactory.getHttpContentTypeHeader()).body(Mono.just(bodyString), String.class);
         }
-        return ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Mono.just("Failed to get nomenclature default config"), String.class);
+        return ServerResponse.status(HttpStatus.NOT_FOUND).body(Mono.just(String.format("The %s asked is not found", nomenclatureName)), String.class);
     }
 
     private QueryParameters buildNomenclatureQueryParameters(final ServerRequest request, final Nomenclature defaultNomenclatureConfig) {
@@ -83,7 +85,7 @@ public class NomenclatureHandler {
     }
 
     public Mono<ServerResponse> show(final ServerRequest request) {
-        final Nomenclature defaultConfig = nomenclatureService.getDefaultNomenclatureConfig(request.pathVariable("nomenclatureName"))
+        final Nomenclature defaultConfig = NomenclatureConfig.getDefaultConfig(request.pathVariable("nomenclatureName"))
                 .orElse(Nomenclature.NONE);
         LOGGER.info(String.format("%s %s", request.methodName(), request.path()));
         if (!defaultConfig.equals(Nomenclature.NONE)) {
