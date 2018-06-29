@@ -30,6 +30,18 @@ ext {
     assertjDependency = "org.assertj:assertj-core:${assertjVersion}"
 
 
+    applicationDependencies = [
+            lombok: lombokDependency,
+            javaxInject: "javax.inject:javax.inject:${javaInjectVersion}",
+    ]
+
+    applicationTestDependencies = [
+            junit: junitDependency,
+            cucumber:   "info.cukes:cucumber-junit:${cucumberVersion}",
+            cucumberJava8: "info.cukes:cucumber-java8:${cucumberVersion}",
+            assertj: assertjDependency
+    ]
+
     domainDependencies = [
             lombok: lombokDependency,
             javaxInject: "javax.inject:javax.inject:${javaInjectVersion}",
@@ -63,6 +75,7 @@ ext {
     ]
 
     webServicesDependencies = [
+            lombok: lombokDependency,
             springBootStarter: springBootStarterDependency,
             springBootStarterWebFlux: "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}",
     ]

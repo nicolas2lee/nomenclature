@@ -4,9 +4,9 @@ dependencies {
     def webServicesDependencies = rootProject.ext.webServicesDependencies
     def webServicesTestDependencies = rootProject.ext.webServicesTestDependencies
 
-    compile project (':domain')
-    compile project (':infrastructure')
+    compile project (':application')
 
+    compile webServicesDependencies.lombok
     compile webServicesDependencies.springBootStarter
     compile webServicesDependencies.springBootStarterWebFlux
 

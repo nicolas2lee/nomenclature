@@ -2,23 +2,14 @@ package tao.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
-import tao.features.core.NomenclatureService;
-import tao.features.core.QueryParametersFactory;
-import tao.features.core.ResponseContentTypeFactory;
-import tao.features.core.model.Nomenclature;
-import tao.features.core.model.QueryParameters;
-import tao.features.core.model.Summary;
-import tao.features.core.service.impl.NomenclatureConfig;
-import tao.features.format.adapter.ContentTypeFactory;
+import tao.usecase.nomenclature.interactor.GetSingleNomenclatureUseCase;
+import tao.usecase.nomenclature.interactor.GetSortPagingNomenclatureListUseCase;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class NomenclatureHandler {
@@ -29,74 +20,57 @@ public class NomenclatureHandler {
     private static final String SORT_DIRECTION_QUERY_PARAMETER = "sortDirection";
     private static final String PAGING_PACKET_QUERY_PARAMETER = "pagingPacket";
     private static final String OFFSET_QUERY_PARAMETER = "offset";
-    private static final String ID_QUERY_PARAMETER = "ID";
+    private static final String ID_QUERY_PARAMETER = "id";
 
-    private final NomenclatureService nomenclatureService;
 
-    private final QueryParametersFactory queryParametersFactory;
+    private final GetSortPagingNomenclatureListUseCase getSortPagingNomenclatureListUseCaseUseCase;
+    private final GetSingleNomenclatureUseCase getSingleNomenclatureUseCase;
 
-    private final ResponseContentTypeFactory responseContentTypeFactory;
-
-    NomenclatureHandler(NomenclatureService nomenclatureService,
-                        QueryParametersFactory queryParametersFactory,
-                        ResponseContentTypeFactory responseContentTypeFactory) {
-        this.nomenclatureService = nomenclatureService;
-        this.queryParametersFactory = queryParametersFactory;
-        this.responseContentTypeFactory = responseContentTypeFactory;
+    NomenclatureHandler(GetSortPagingNomenclatureListUseCase getSortPagingNomenclatureListUseCaseUseCase,
+                        GetSingleNomenclatureUseCase getSingleNomenclatureUseCase) {
+        this.getSortPagingNomenclatureListUseCaseUseCase = getSortPagingNomenclatureListUseCaseUseCase;
+        this.getSingleNomenclatureUseCase = getSingleNomenclatureUseCase;
     }
 
     // TODO: 28/06/2018 should use cache & in which scenario
     public Mono<ServerResponse> list(final ServerRequest request){
-        final String nomenclatureName = request.pathVariable("nomenclatureName");
-        final Nomenclature defaultConfig = NomenclatureConfig.getDefaultConfig(nomenclatureName)
-                .orElse(Nomenclature.NONE);
         LOGGER.info(String.format("%s %s", request.methodName(), request.path()));
-        if (!defaultConfig.equals(Nomenclature.NONE)) {
-            final QueryParameters queryParameters = buildNomenclatureQueryParameters(request, defaultConfig);
-            List<Map<String, Object>> items = nomenclatureService.getAllItemsBySortPaging(queryParameters, defaultConfig);
-            List<String> header = request.headers().header("accept");
-            final ContentTypeFactory contentTypeFactory = responseContentTypeFactory.create(header);
-            Map<String, Object> resultMap = new HashMap<>();
-            resultMap.put(defaultConfig.getResourceName(), items);
-            final Summary summary = defaultConfig.getSummary();
-            if (summary.isEnabled()) {
-                resultMap.put(summary.getNbElementsAttributeName(), items.size());
-                resultMap.put(summary.getTotalAttributeName(), nomenclatureService.countAllItems(defaultConfig));
-            }
-            final String bodyString = contentTypeFactory.produce(resultMap);
-            LOGGER.debug(String.format("The response body string : %s", bodyString));
 
-            return ServerResponse.ok().header(contentTypeFactory.getHttpContentTypeHeader()).body(Mono.just(bodyString), String.class);
-        }
-        return ServerResponse.status(HttpStatus.NOT_FOUND).body(Mono.just(String.format("The %s asked is not found", nomenclatureName)), String.class);
+        final GetSortPagingNomenclatureListUseCase.Params userRequest = buildGetSortPagingNomenclatureListParams(request);
+        GetSortPagingNomenclatureListUseCase.RawResponse rawResponse = getSortPagingNomenclatureListUseCaseUseCase.execute(userRequest);
+        return ServerResponse.status(rawResponse.getStatusCode()).header(rawResponse.getHeader()).body(Mono.just(rawResponse.getBodyString()), String.class);
     }
 
-    private QueryParameters buildNomenclatureQueryParameters(final ServerRequest request, final Nomenclature defaultNomenclatureConfig) {
-        final QueryParameters.UserRequest userRequest = buildUserRequestQueryParameters(request);
-        return queryParametersFactory.create(userRequest, defaultNomenclatureConfig);
-    }
-
-    private QueryParameters.UserRequest buildUserRequestQueryParameters(final ServerRequest request) {
-        return QueryParameters.UserRequest.builder()
+    private GetSortPagingNomenclatureListUseCase.Params buildGetSortPagingNomenclatureListParams(final ServerRequest request) {
+        final String nomenclatureName = request.pathVariable("nomenclatureName");
+        final List<String> header = request.headers().header("accept");
+        return GetSortPagingNomenclatureListUseCase.Params.builder()
                 .selectedFields(request.queryParam(SELECTED_FIELDS_QUERY_PARAMETER))
                 .sortField(request.queryParam(SORT_FIELD_QUERY_PARAMETER)).sortDirection(request.queryParam(SORT_DIRECTION_QUERY_PARAMETER))
                 .pagingPacket(request.queryParam(PAGING_PACKET_QUERY_PARAMETER)).offset(request.queryParam(OFFSET_QUERY_PARAMETER))
+                .nomenclatureName(nomenclatureName)
+                .header(header)
                 .build();
     }
 
     public Mono<ServerResponse> show(final ServerRequest request) {
-        final Nomenclature defaultConfig = NomenclatureConfig.getDefaultConfig(request.pathVariable("nomenclatureName"))
-                .orElse(Nomenclature.NONE);
         LOGGER.info(String.format("%s %s", request.methodName(), request.path()));
-        if (!defaultConfig.equals(Nomenclature.NONE)) {
-            final QueryParameters queryParameters = buildNomenclatureQueryParameters(request, defaultConfig);
-            final String id = request.pathVariable(ID_QUERY_PARAMETER);
-            List<String> header = request.headers().header("accept");
-            final ContentTypeFactory contentTypeFactory = responseContentTypeFactory.create(header);
-            Map<String, Object> item = nomenclatureService.getItemById(defaultConfig, id, queryParameters);
-            return ServerResponse.ok().body(Mono.just(contentTypeFactory.produce(item)), String.class);
-        }
-        return ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Mono.just("Failed to get nomenclature default config"), String.class);
+        final GetSingleNomenclatureUseCase.Params params = buildGetSingleNomenclatureParams(request);
+        GetSingleNomenclatureUseCase.RawResponse rawResponse = getSingleNomenclatureUseCase.execute(params);
+        return ServerResponse.status(rawResponse.getStatusCode()).header(rawResponse.getHeader()).body(Mono.just(rawResponse.getBodyString()), String.class);
 
+    }
+
+    private GetSingleNomenclatureUseCase.Params buildGetSingleNomenclatureParams(ServerRequest request) {
+        final String nomenclatureName = request.pathVariable("nomenclatureName");
+        final String id = request.pathVariable(ID_QUERY_PARAMETER);
+        final List<String> header = request.headers().header("accept");
+
+        return GetSingleNomenclatureUseCase.Params.builder()
+                .nomenclatureName(nomenclatureName)
+                .id(id)
+                .selectedFields(request.queryParam(SELECTED_FIELDS_QUERY_PARAMETER))
+                .header(header)
+                .build();
     }
 }
