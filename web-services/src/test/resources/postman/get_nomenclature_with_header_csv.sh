@@ -1,0 +1,1 @@
+curl --header "accept: text/csv" http://localhost:8080/api/v1/pays

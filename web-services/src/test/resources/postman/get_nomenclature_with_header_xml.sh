@@ -1,0 +1,1 @@
+curl --header "accept: application/xml" http://localhost:8080/api/v1/pays

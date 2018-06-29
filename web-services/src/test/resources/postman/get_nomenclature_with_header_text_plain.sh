@@ -1,0 +1,1 @@
+curl --header "accept: text/plain" http://localhost:8080/api/v1/pays

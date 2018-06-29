@@ -11,7 +11,6 @@ import java.util.Map;
 @Mapper
 public interface ItemRepositoryMapper {
 
-    // TODO: 26/06/2018 need to avoid sql injection, need pre process tableName
     @Transactional(readOnly = true)
     @Select("SELECT ${selectedFields} FROM ${tableName} WHERE ${whereClause} order by ${orderByField} ${orderByDirection} ${limitClause}")
     List<Map<String, Object>> getAll(@Param("selectedFields") String selectedFields,
