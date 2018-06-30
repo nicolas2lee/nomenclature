@@ -1,0 +1,14 @@
+dependencies {
+    def applicationDependencies = rootProject.ext.applicationDependencies
+    def applicationTestDependencies = rootProject.ext.applicationTestDependencies
+
+    compile project (':domain')
+    compile project (':infrastructure')
+    compile applicationDependencies.javaxInject
+    compile applicationDependencies.lombok
+
+    testCompile applicationTestDependencies.junit
+    testCompile applicationTestDependencies.cucumber
+    testCompile applicationTestDependencies.cucumberJava8
+    testCompile applicationTestDependencies.assertj
+}
