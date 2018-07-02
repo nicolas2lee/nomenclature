@@ -9,6 +9,8 @@ dependencies {
     compile webServicesDependencies.lombok
     compile webServicesDependencies.springBootStarter
     compile webServicesDependencies.springBootStarterWebFlux
+    compile webServicesDependencies.swagger2
+    compile webServicesDependencies.swaggerUi
 
     testCompile webServicesTestDependencies.junit
     testCompile webServicesTestDependencies.mockito

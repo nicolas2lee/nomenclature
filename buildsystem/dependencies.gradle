@@ -7,6 +7,7 @@ ext {
     logbackVersion = '1.2.3'
     mybatisSpringBootVersion = '1.3.2'
     simpleJsonVersion = '1.1.1'
+    swaggerVersion = '2.7.0'
 
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
@@ -78,6 +79,8 @@ ext {
             lombok: lombokDependency,
             springBootStarter: springBootStarterDependency,
             springBootStarterWebFlux: "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}",
+            swagger2: "io.springfox:springfox-swagger2:${swaggerVersion}",
+            swaggerUi: "io.springfox:springfox-swagger-ui:${swaggerVersion}"
     ]
 
     webServicesTestDependencies = [
