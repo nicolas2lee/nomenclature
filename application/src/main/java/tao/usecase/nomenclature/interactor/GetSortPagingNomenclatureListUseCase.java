@@ -2,6 +2,7 @@ package tao.usecase.nomenclature.interactor;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tao.usecase.nomenclature.core.NomenclatureConfig;
@@ -76,6 +77,7 @@ public class GetSortPagingNomenclatureListUseCase extends UseCase<GetSortPagingN
 
     @Getter
     @Builder
+    @ToString
     public static final class RawResponse {
         private Integer statusCode;
         private String header;

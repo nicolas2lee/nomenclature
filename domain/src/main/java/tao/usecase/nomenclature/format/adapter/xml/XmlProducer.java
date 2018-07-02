@@ -23,6 +23,7 @@ public class XmlProducer extends ContentTypeFactory {
         String type;
         List<String> finalString = new ArrayList<>();
         finalString.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+        finalString.add("<result>");
 
         List<Map> elements;
         for (String key : items.keySet()) {
@@ -47,7 +48,7 @@ public class XmlProducer extends ContentTypeFactory {
                 finalString.add("</items>");
             }
         }
-
+        finalString.add("</result>");
         return String.join("", finalString);
     }
 }
