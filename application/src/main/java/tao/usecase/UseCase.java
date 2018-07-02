@@ -1,5 +1,5 @@
 package tao.usecase;
 
 public abstract class UseCase<Response, Params> {
-    //abstract void execute(Params params);
+     public abstract Response execute(Params params);
 }

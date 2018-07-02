@@ -41,11 +41,11 @@ public class GetSortPagingNomenclatureListUseCase extends UseCase<GetSortPagingN
         this.responseContentTypeFactory =responseContentTypeFactory;
     }
 
-    public RawResponse execute(Params params){
+    @Override
+    public GetSortPagingNomenclatureListUseCase.RawResponse execute(GetSortPagingNomenclatureListUseCase.Params params){
         final Nomenclature defaultConfig = nomenclatureConfig.getDefaultConfig(params.getNomenclatureName());
         if (!defaultConfig.equals(Nomenclature.NONE)) {
             final QueryParameters queryParameters = queryParametersFactory.create(params, defaultConfig);
-
             List<Map<String, Object>> items = nomenclatureRepository.getAllItemsBySortPaging(queryParameters, defaultConfig);
             final ContentTypeFactory contentTypeFactory = responseContentTypeFactory.create(params.getHeader());
             Map<String, Object> resultMap = new HashMap<>();
@@ -57,11 +57,9 @@ public class GetSortPagingNomenclatureListUseCase extends UseCase<GetSortPagingN
             }
             final String bodyString = contentTypeFactory.produce(resultMap);
             LOGGER.debug(String.format("The response body string : %s", bodyString));
-
             return RawResponse.builder().statusCode(200).header(contentTypeFactory.getHttpContentTypeHeader()).bodyString(bodyString).build();
         }
         return RawResponse.builder().statusCode(404).bodyString(String.format("The %s asked is not found", params.getNomenclatureName())).build();
-
     }
 
     @Builder

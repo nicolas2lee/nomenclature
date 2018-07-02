@@ -35,7 +35,6 @@ public class NomenclatureHandler {
     // TODO: 28/06/2018 should use cache & in which scenario
     public Mono<ServerResponse> list(final ServerRequest request){
         LOGGER.info(String.format("%s %s", request.methodName(), request.path()));
-
         final GetSortPagingNomenclatureListUseCase.Params userRequest = buildGetSortPagingNomenclatureListParams(request);
         GetSortPagingNomenclatureListUseCase.RawResponse rawResponse = getSortPagingNomenclatureListUseCaseUseCase.execute(userRequest);
         return ServerResponse.status(rawResponse.getStatusCode()).header(rawResponse.getHeader()).body(Mono.just(rawResponse.getBodyString()), String.class);
@@ -58,7 +57,6 @@ public class NomenclatureHandler {
         final GetSingleNomenclatureUseCase.Params params = buildGetSingleNomenclatureParams(request);
         GetSingleNomenclatureUseCase.RawResponse rawResponse = getSingleNomenclatureUseCase.execute(params);
         return ServerResponse.status(rawResponse.getStatusCode()).header(rawResponse.getHeader()).body(Mono.just(rawResponse.getBodyString()), String.class);
-
     }
 
     private GetSingleNomenclatureUseCase.Params buildGetSingleNomenclatureParams(ServerRequest request) {
