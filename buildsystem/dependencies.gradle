@@ -8,13 +8,15 @@ ext {
     mybatisSpringBootVersion = '1.3.2'
     simpleJsonVersion = '1.1.1'
     swaggerVersion = '2.7.0'
+    mysqlVersion = '8.0.11'
+    servletVersion = '3.1.0'
 
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
     cucumberVersion = '1.2.5'
     assertjVersion = '3.10.0'
     h2Version = '1.4.197'
-    mysqlVersion = '8.0.11'
+
 
     //Development
     springBootStarterDependency = "org.springframework.boot:spring-boot-starter"
@@ -80,7 +82,8 @@ ext {
             springBootStarter: springBootStarterDependency,
             springBootStarterWebFlux: "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}",
             swagger2: "io.springfox:springfox-swagger2:${swaggerVersion}",
-            swaggerUi: "io.springfox:springfox-swagger-ui:${swaggerVersion}"
+            swaggerUi: "io.springfox:springfox-swagger-ui:${swaggerVersion}",
+            servlet: "javax.servlet:javax.servlet-api:${servletVersion}"
     ]
 
     webServicesTestDependencies = [

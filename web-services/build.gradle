@@ -5,6 +5,7 @@ dependencies {
     def webServicesTestDependencies = rootProject.ext.webServicesTestDependencies
 
     compile project (':application')
+    compileOnly webServicesDependencies.servlet
 
     compile webServicesDependencies.lombok
     compile webServicesDependencies.springBootStarter
