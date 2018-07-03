@@ -1,8 +1,12 @@
 package tao;
 
+import org.apache.ignite.Ignite;
+import org.apache.ignite.Ignition;
+import org.apache.ignite.configuration.IgniteConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class Application {
@@ -17,5 +21,10 @@ public class Application {
         applicationContext.registerShutdownHook();
     }
 
+    @SuppressWarnings("deprecation")
+    @Bean
+    public Ignite igniteInstance() {
+        return Ignition.start("config/example-ignite.xml");
+    }
 
 }

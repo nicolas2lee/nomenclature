@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/v1")
+@RequestMapping(value = "/api/v1/nomenclature")
 public class NomenclaturesController {
     private static final Logger LOGGER = LoggerFactory.getLogger(NomenclaturesController.class);
 
@@ -61,16 +61,12 @@ public class NomenclaturesController {
                                                                                                  String header) {
 
         return GetSortPagingNomenclatureListUseCase.Params.builder()
-                .selectedFields(buildOptionalParameter(selectedFields))
-                .sortField(buildOptionalParameter(sortField)).sortDirection(buildOptionalParameter(sortDirection))
-                .pagingPacket(buildOptionalParameter(pagingPacket)).offset(buildOptionalParameter(offset))
+                .selectedFields(Optional.ofNullable(selectedFields))
+                .sortField(Optional.ofNullable(sortField)).sortDirection(Optional.ofNullable(sortDirection))
+                .pagingPacket(Optional.ofNullable(pagingPacket)).offset(Optional.ofNullable(offset))
                 .nomenclatureName(nomenclatureName)
                 .header(Arrays.asList(header))
                 .build();
-    }
-
-    private Optional<String> buildOptionalParameter(String s) {
-        return s == null ? Optional.empty() : Optional.of(s);
     }
 
     @GetMapping(value = "/{nomenclatureName}/{id}")
@@ -92,7 +88,7 @@ public class NomenclaturesController {
         return GetSingleNomenclatureUseCase.Params.builder()
                 .nomenclatureName(nomenclatureName)
                 .id(id)
-                .selectedFields(buildOptionalParameter(selectedFields))
+                .selectedFields(Optional.ofNullable(selectedFields))
                 .header(Arrays.asList(header))
                 .build();
     }
