@@ -21,7 +21,6 @@ public class Application {
         applicationContext.registerShutdownHook();
     }
 
-    @SuppressWarnings("deprecation")
     @Bean
     public Ignite igniteInstance() {
         return Ignition.start("config/example-ignite.xml");

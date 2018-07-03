@@ -1,4 +1,4 @@
-package tao.usecase.nomenclature.core.repositorymapper;
+package tao.usecase.nomenclature.core.repository.sql.mapper;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
+import tao.usecase.nomenclature.core.repository.sql.mapper.ItemRepositoryMapper;
 
 import java.util.List;
 import java.util.Map;

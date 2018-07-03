@@ -1,4 +1,4 @@
-package tao.usecase.nomenclature.core.service;
+package tao.usecase.nomenclature.core.repository.sql;
 
 import tao.usecase.nomenclature.core.model.Clause;
 import tao.usecase.nomenclature.core.model.Paging;

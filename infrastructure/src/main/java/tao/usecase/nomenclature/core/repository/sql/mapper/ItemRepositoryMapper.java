@@ -1,4 +1,4 @@
-package tao.usecase.nomenclature.core.repositorymapper;
+package tao.usecase.nomenclature.core.repository.sql.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

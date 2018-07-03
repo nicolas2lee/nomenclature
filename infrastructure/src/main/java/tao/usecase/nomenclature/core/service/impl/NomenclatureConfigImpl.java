@@ -15,7 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.File;
 import java.util.Optional;
-@Component
+@Service
 public class NomenclatureConfigImpl implements NomenclatureConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NomenclatureConfigImpl.class);

@@ -1,0 +1,17 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/nomenclature?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: root
+  profiles:
+    active: inmemory
+ignite:
+  jdbc:
+    driver:
+      class:
+        name:
+          org.apache.ignite.IgniteJdbcThinDriver
+  url:
+    jdbc:ignite:thin://127.0.0.1/

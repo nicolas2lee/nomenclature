@@ -1,26 +1,27 @@
-package tao.usecase.nomenclature.core.service.impl;
+package tao.usecase.nomenclature.core.repository.sql;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import tao.usecase.nomenclature.core.NomenclatureRepository;
 import tao.usecase.nomenclature.core.model.Nomenclature;
 import tao.usecase.nomenclature.core.model.QueryParameters;
-import tao.usecase.nomenclature.core.repositorymapper.ItemRepositoryMapper;
-import tao.usecase.nomenclature.core.service.SqlHelper;
+import tao.usecase.nomenclature.core.repository.sql.mapper.ItemRepositoryMapper;
 
 import java.util.List;
 import java.util.Map;
 
-@Service
-public class NomenclatureRepositoryImpl implements NomenclatureRepository {
+@Profile("!inmemory")
+@Service("nomenclatureRepository")
+public class NomenclatureRepositorySqlImpl implements NomenclatureRepository {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(NomenclatureRepositoryImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NomenclatureRepositorySqlImpl.class);
     private final ItemRepositoryMapper itemRepositoryMapper;
     private final SqlHelper sqlHelper;
 
-    NomenclatureRepositoryImpl(ItemRepositoryMapper itemRepositoryMapper,
-                               SqlHelper sqlHelper) {
+    NomenclatureRepositorySqlImpl(ItemRepositoryMapper itemRepositoryMapper,
+                                  SqlHelper sqlHelper) {
         this.itemRepositoryMapper = itemRepositoryMapper;
         this.sqlHelper = sqlHelper;
     }

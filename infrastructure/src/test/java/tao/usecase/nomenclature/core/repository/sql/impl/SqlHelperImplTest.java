@@ -1,10 +1,11 @@
-package tao.usecase.nomenclature.core.service.impl;
+package tao.usecase.nomenclature.core.repository.sql.impl;
 
 import org.junit.Before;
 import org.junit.Test;
 import tao.usecase.nomenclature.core.model.Clause;
 import tao.usecase.nomenclature.core.model.Paging;
-import tao.usecase.nomenclature.core.service.exception.SqlWhereClauseFormatInvalidException;
+import tao.usecase.nomenclature.core.repository.sql.exception.SqlWhereClauseFormatInvalidException;
+import tao.usecase.nomenclature.core.repository.sql.impl.SqlHelperImpl;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -17,14 +17,6 @@ import java.util.Optional;
 public class NomenclaturesController {
     private static final Logger LOGGER = LoggerFactory.getLogger(NomenclaturesController.class);
 
-    private static final String SELECTED_FIELDS_QUERY_PARAMETER = "selectedFields";
-    private static final String SORT_FIELD_QUERY_PARAMETER = "sortField";
-    private static final String SORT_DIRECTION_QUERY_PARAMETER = "sortDirection";
-    private static final String PAGING_PACKET_QUERY_PARAMETER = "pagingPacket";
-    private static final String OFFSET_QUERY_PARAMETER = "offset";
-    private static final String ID_QUERY_PARAMETER = "id";
-
-
     private final GetSortPagingNomenclatureListUseCase getSortPagingNomenclatureListUseCaseUseCase;
     private final GetSingleNomenclatureUseCase getSingleNomenclatureUseCase;
 

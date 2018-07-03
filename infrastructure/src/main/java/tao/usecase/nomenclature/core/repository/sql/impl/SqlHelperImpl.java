@@ -1,11 +1,11 @@
-package tao.usecase.nomenclature.core.service.impl;
+package tao.usecase.nomenclature.core.repository.sql.impl;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import tao.usecase.nomenclature.core.model.Clause;
 import tao.usecase.nomenclature.core.model.Paging;
-import tao.usecase.nomenclature.core.service.SqlHelper;
-import tao.usecase.nomenclature.core.service.exception.SqlWhereClauseFormatInvalidException;
+import tao.usecase.nomenclature.core.repository.sql.SqlHelper;
+import tao.usecase.nomenclature.core.repository.sql.exception.SqlWhereClauseFormatInvalidException;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,4 +1,4 @@
-package tao.usecase.nomenclature.core.repositorymapper;
+package tao.usecase.nomenclature.core.repository.sql.mapper;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
