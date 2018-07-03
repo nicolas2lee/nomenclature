@@ -13,7 +13,7 @@ ext {
     mockitoVersion = '1.10.19'
     cucumberVersion = '1.2.5'
     assertjVersion = '3.10.0'
-    h2Version = '1.4.197'
+    h2Version = '1.4.195'
     mysqlVersion = '8.0.11'
 
     //Development

@@ -28,10 +28,12 @@
         <jackson.version>2.9.6</jackson.version>
         <simplejson.version>1.1.1</simplejson.version>
         <mybatis.springboot.version>1.3.2</mybatis.springboot.version>
+
         <mysql.version>8.0.11</mysql.version>
-        <h2.version>1.4.197</h2.version>
+        <h2.version>1.4.195</h2.version>
         <logback.version>1.2.3</logback.version>
         <swagger.version>2.7.0</swagger.version>
+        <ignite.version>2.5.0</ignite.version>
     </properties>
 
     <dependencyManagement>
@@ -92,6 +94,21 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.ignite</groupId>
+                <artifactId>ignite-core</artifactId>
+                <version>${ignite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.ignite</groupId>
+                <artifactId>ignite-indexing</artifactId>
+                <version>${ignite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.ignite</groupId>
+                <artifactId>ignite-spring</artifactId>
+                <version>${ignite.version}</version>
             </dependency>
             <!-- test dependency -->
             <dependency>

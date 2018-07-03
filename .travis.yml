@@ -2,6 +2,6 @@ language: java
 jdk: oraclejdk8
 
 script:
-  - ./gradlew clean build
-  - ./gradlew clean web-services:fatJar
+  #- ./gradlew clean build
+  #- ./gradlew clean web-services:fatJar
   - ./mvnw clean package
