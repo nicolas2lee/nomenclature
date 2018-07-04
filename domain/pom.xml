@@ -7,7 +7,7 @@
     <artifactId>domain</artifactId>
     <parent>
         <artifactId>nomenclature</artifactId>
-        <groupId>tao</groupId>
+        <groupId>com.bnpparibas.dsibddf</groupId>
         <relativePath>../pom.xml</relativePath>
         <version>1.0-SNAPSHOT</version>
     </parent>

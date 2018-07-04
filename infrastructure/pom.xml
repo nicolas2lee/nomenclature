@@ -7,14 +7,14 @@
     <artifactId>infrastructure</artifactId>
     <parent>
         <artifactId>nomenclature</artifactId>
-        <groupId>tao</groupId>
+        <groupId>com.bnpparibas.dsibddf</groupId>
         <relativePath>../pom.xml</relativePath>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <dependencies>
         <dependency>
-            <groupId>tao</groupId>
+            <groupId>com.bnpparibas.dsibddf</groupId>
             <artifactId>domain</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

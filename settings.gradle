@@ -1,5 +1,5 @@
 include ':domain'
 include ':infrastructure'
-include ':web-services'
-include 'application'
+include ':exposition'
+include ':application'
 
