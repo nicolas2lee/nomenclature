@@ -1,11 +1,8 @@
 package tao;
 
-import org.apache.ignite.Ignite;
-import org.apache.ignite.Ignition;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class Application {
@@ -20,9 +17,5 @@ public class Application {
         applicationContext.registerShutdownHook();
     }
 
-    @Bean
-    public Ignite igniteInstance() {
-        return Ignition.start("config/example-ignite.xml");
-    }
 
 }

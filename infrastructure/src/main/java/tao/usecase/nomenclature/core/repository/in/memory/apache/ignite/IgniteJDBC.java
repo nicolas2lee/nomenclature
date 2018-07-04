@@ -1,6 +1,5 @@
 package tao.usecase.nomenclature.core.repository.in.memory.apache.ignite;
 
-import org.apache.ignite.internal.jdbc.thin.JdbcThinResultSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -74,9 +73,9 @@ public class IgniteJDBC {
         Statement sql = conn.createStatement();
         LOGGER.info(String.format("Trying to execute request: %s", sqlString));
         ResultSet resultSet = sql.executeQuery(sqlString);
-        int count =0;
-        while (resultSet.next()) count++;
-        return count;
+        if (resultSet.next())
+            return resultSet.getInt(1);
+        throw new SQLException(String.format("Failed to run sql %s", sqlString));
     }
 
     private List<Map<String, Object>> convertResultSetToListMap(ResultSet resultSet) throws SQLException {
