@@ -16,6 +16,7 @@ dependencies {
     testCompile webServicesTestDependencies.junit
     testCompile webServicesTestDependencies.mockito
     testCompile webServicesTestDependencies.springBootTest
+    testCompile webServicesTestDependencies.mybatisSpringBootTest
 }
 
 configurations {

@@ -4,6 +4,7 @@ import com.bnpparibas.dsibddf.nomenclature.infrastructure.core.repository.in.mem
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import com.bnpparibas.dsibddf.nomenclature.domain.core.NomenclatureRepository;
 import java.sql.SQLException;
 
 // TODO: 04/07/2018 for test only, should be removed when batch module completed
+@Profile("inmemory")
 @RestController
 @RequestMapping(value = "/api/v1/ignite")
 public class IgniteController {

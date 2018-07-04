@@ -11,6 +11,9 @@ dependencies {
     compile infraDependencies.jacksonYaml
     compile infraDependencies.mybatisSpringBoot
     compile infraDependencies.mysql
+    compile infraDependencies.igniteCore
+    compile infraDependencies.igniteIndexing
+    compile infraDependencies.igniteSpring
 
     testCompile infraTestDependencies.h2
     testCompile infraTestDependencies.junit

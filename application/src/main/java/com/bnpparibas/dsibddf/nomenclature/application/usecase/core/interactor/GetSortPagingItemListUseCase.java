@@ -1,5 +1,6 @@
 package com.bnpparibas.dsibddf.nomenclature.application.usecase.core.interactor;
 
+import com.bnpparibas.dsibddf.nomenclature.domain.format.adapter.MediaType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -80,8 +81,11 @@ public class GetSortPagingItemListUseCase extends UseCase<GetSortPagingItemListU
     @Builder
     @ToString
     public static final class RawResponse {
-        private Integer statusCode;
-        private String header;
-        private String bodyString;
+        @Builder.Default
+        private Integer statusCode = -1;
+        @Builder.Default
+        private String header = MediaType.APPLICATION_JSON_VALUE.getValue();
+        @Builder.Default
+        private String bodyString = "";
     }
 }

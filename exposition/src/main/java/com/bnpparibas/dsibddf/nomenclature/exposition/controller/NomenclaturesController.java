@@ -1,12 +1,12 @@
 package com.bnpparibas.dsibddf.nomenclature.exposition.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.bnpparibas.dsibddf.nomenclature.application.usecase.core.interactor.GetSingleItemUseCase;
+import com.bnpparibas.dsibddf.nomenclature.application.usecase.core.interactor.GetSortPagingItemListUseCase;
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.bnpparibas.dsibddf.nomenclature.application.usecase.core.interactor.GetSingleItemUseCase;
-import com.bnpparibas.dsibddf.nomenclature.application.usecase.core.interactor.GetSortPagingItemListUseCase;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
@@ -15,8 +15,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/v1/nomenclature")
+@Slf4j
 public class NomenclaturesController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(NomenclaturesController.class);
 
     private final GetSortPagingItemListUseCase getSortPagingItemListUseCaseUseCase;
     private final GetSingleItemUseCase getSingleItemUseCase;
@@ -39,9 +39,9 @@ public class NomenclaturesController {
             @RequestParam(value="offset", required = false) String offset,
             HttpServletRequest request) {
         LOGGER.info(String.format("%s %s/%s", request.getMethod(), request.getRequestURL(), nomenclatureName));
-        final String header = request.getHeader("accept");
+        val header = request.getHeader("accept");
         LOGGER.info(String.format("HTTP header: accept : %s", header));
-        final GetSortPagingItemListUseCase.Params userRequest = buildGetSortPagingNomenclatureListParams(nomenclatureName, selectedFields,
+        val userRequest = buildGetSortPagingNomenclatureListParams(nomenclatureName, selectedFields,
                 sortField, sortDirection, pagingPacket, offset, header);
         GetSortPagingItemListUseCase.RawResponse rawResponse = null;
         try {
@@ -49,7 +49,7 @@ public class NomenclaturesController {
             LOGGER.debug(rawResponse.toString());
             return ResponseEntity.status(rawResponse.getStatusCode()).contentType(MediaType.valueOf(rawResponse.getHeader())).body(rawResponse.getBodyString());
         } catch (SQLException e) {
-            LOGGER.error("Sql exception :",e);
+            LOGGER.error("Sql exception :", e);
             return ResponseEntity.status(rawResponse.getStatusCode()).contentType(MediaType.valueOf(rawResponse.getHeader())).body(rawResponse.getBodyString());
         }
     }
@@ -75,10 +75,10 @@ public class NomenclaturesController {
             @RequestParam(value="selectedFields", required = false) String selectedFields,
             HttpServletRequest request){
         LOGGER.info(String.format("%s %s/%s/%s", request.getMethod(), request.getPathInfo(), nomenclatureName, id));
-        final String header = request.getHeader("accept");
+        val header = request.getHeader("accept");
         LOGGER.info(String.format("HTTP header: accept : %s", header));
-        final GetSingleItemUseCase.Params params = buildGetSingleNomenclatureParams(nomenclatureName, id, selectedFields, header);
-        GetSingleItemUseCase.RawResponse rawResponse = getSingleItemUseCase.execute(params);
+        val params = buildGetSingleNomenclatureParams(nomenclatureName, id, selectedFields, header);
+        val rawResponse = getSingleItemUseCase.execute(params);
         return ResponseEntity.status(rawResponse.getStatusCode()).contentType(MediaType.valueOf(rawResponse.getHeader())).body(rawResponse.getBodyString());
     }
 
