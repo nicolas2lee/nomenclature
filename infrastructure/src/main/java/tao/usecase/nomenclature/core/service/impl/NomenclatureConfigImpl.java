@@ -4,15 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import tao.usecase.nomenclature.core.NomenclatureConfig;
 import tao.usecase.nomenclature.core.model.Nomenclature;
 import tao.usecase.nomenclature.resource.exception.ResourceNotFoundException;
 import tao.usecase.nomenclature.resource.yaml.service.model.NomenclatureModel;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.File;
 import java.util.Optional;
 @Service

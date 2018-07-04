@@ -6,6 +6,7 @@ import tao.usecase.nomenclature.core.NomenclatureRepository;
 import tao.usecase.nomenclature.core.model.Nomenclature;
 import tao.usecase.nomenclature.core.model.QueryParameters;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -20,17 +21,17 @@ class NomenclatureRepositoryDistributedInMemoryImpl implements NomenclatureRepos
     }
 
     @Override
-    public List<Map<String, Object>> getAllItemsBySortPaging(QueryParameters queryParameters, Nomenclature defaultNomenclatureConfig) {
+    public List<Map<String, Object>> getAllItemsBySortPaging(QueryParameters queryParameters, Nomenclature defaultNomenclatureConfig) throws SQLException {
         return distributedInMemoryRepository.getAllItemsBySortPaging(queryParameters, defaultNomenclatureConfig);
     }
 
     @Override
-    public Integer countAllItems(Nomenclature defaultConfig) {
-        return null;
+    public Integer countAllItems(Nomenclature defaultConfig) throws SQLException {
+        return distributedInMemoryRepository.countAllItems(defaultConfig);
     }
 
     @Override
-    public Map<String, Object> getItemById(Nomenclature defaultConfig, String id, QueryParameters queryParameters) {
-        return null;
+    public Map<String, Object> getItemById(Nomenclature defaultConfig, String id, QueryParameters queryParameters) throws SQLException {
+        return distributedInMemoryRepository.getItemById(defaultConfig, id, queryParameters);
     }
 }

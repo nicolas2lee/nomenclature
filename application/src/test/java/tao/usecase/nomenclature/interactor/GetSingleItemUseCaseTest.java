@@ -3,7 +3,7 @@ package tao.usecase.nomenclature.interactor;
 
 import org.junit.Test;
 
-public class GetSingleNomenclatureUseCaseTest {
+public class GetSingleItemUseCaseTest {
     @Test
     public void should_test() {
 

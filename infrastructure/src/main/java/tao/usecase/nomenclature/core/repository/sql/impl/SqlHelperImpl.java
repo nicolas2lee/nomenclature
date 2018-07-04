@@ -8,12 +8,23 @@ import tao.usecase.nomenclature.core.repository.sql.SqlHelper;
 import tao.usecase.nomenclature.core.repository.sql.exception.SqlWhereClauseFormatInvalidException;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 @Scope("prototype")
 public class SqlHelperImpl implements SqlHelper {
     private static final String DEFAULT_WHERE_CLAUSE = "1=1";
+
+    private Set<String> extractSelectedFieldsValuesFromMap(Map<String, String> selectedFields) {
+        return selectedFields.entrySet().stream().map(x -> x.getValue()).collect(Collectors.toSet());
+    }
+
+    @Override
+    public String buildSelectedFields(Map<String, String> selectedFields) {
+        return String.join(", ", extractSelectedFieldsValuesFromMap(selectedFields));
+    }
 
     @Override
     public String buildLimitClause(Paging paging, String offset, String pagingPacket) {

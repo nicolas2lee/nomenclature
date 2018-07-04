@@ -17,15 +17,15 @@ class ResponseContentTypeFactoryImpl implements ResponseContentTypeFactory {
     }
 
     @Override
-    public ContentTypeFactory create(List<String> headers) {
+    public ContentTypeProducer create(List<String> headers) {
         List<String> contentTypes = headers.stream().flatMap(header -> createStreamViaSplitComma(header)).map(s -> s.toLowerCase()).collect(Collectors.toList());
         if (contentTypes.contains(MediaType.APPLICATION_XML_VALUE.getValue()))
-            return ContentTypeFactory.create(MediaType.APPLICATION_XML_VALUE);
+            return ContentTypeProducer.create(MediaType.APPLICATION_XML_VALUE);
         if (contentTypes.contains(MediaType.CSV_VALUE.getValue()))
-            return ContentTypeFactory.create(MediaType.CSV_VALUE);
+            return ContentTypeProducer.create(MediaType.CSV_VALUE);
         if (contentTypes.contains(MediaType.TEXT_PLAIN_VALUE.getValue()))
-            return ContentTypeFactory.create(MediaType.TEXT_PLAIN_VALUE);
-        return ContentTypeFactory.create(MediaType.APPLICATION_JSON_VALUE);
+            return ContentTypeProducer.create(MediaType.TEXT_PLAIN_VALUE);
+        return ContentTypeProducer.create(MediaType.APPLICATION_JSON_VALUE);
     }
 
     Stream<String> createStreamViaSplitComma(String header) {

@@ -6,7 +6,7 @@ import tao.usecase.nomenclature.core.model.Nomenclature;
 import tao.usecase.nomenclature.core.model.Paging;
 import tao.usecase.nomenclature.core.model.QueryParameters;
 import tao.usecase.nomenclature.core.model.Sort;
-import tao.usecase.nomenclature.interactor.GetSortPagingNomenclatureListUseCase;
+import tao.usecase.nomenclature.interactor.GetSortPagingItemListUseCase;
 import tao.usecase.nomenclature.service.QueryParametersFactory;
 
 import javax.inject.Inject;
@@ -26,7 +26,7 @@ class QueryParametersFactoryImpl implements QueryParametersFactory {
     }
 
     @Override
-    public QueryParameters create(GetSortPagingNomenclatureListUseCase.Params params, Nomenclature defaultNomenclatureConfig) {
+    public QueryParameters create(GetSortPagingItemListUseCase.Params params, Nomenclature defaultNomenclatureConfig) {
         final Sort defaultSort = defaultNomenclatureConfig.getSort();
         final Paging defaultPaging = defaultNomenclatureConfig.getPaging();
         return QueryParameters.builder()

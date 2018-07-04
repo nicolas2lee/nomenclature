@@ -1,13 +1,13 @@
 package tao.usecase.nomenclature.format.adapter.csv;
 
-import tao.usecase.nomenclature.format.adapter.ContentTypeFactory;
+import tao.usecase.nomenclature.format.adapter.ContentTypeProducer;
 import tao.usecase.nomenclature.format.adapter.MediaType;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class CsvProducer extends ContentTypeFactory {
+public class CsvProducer extends ContentTypeProducer {
     @Override
     public String produce(Map<String, Object> items) {
         super.setHttpContentTypeHeader(MediaType.TEXT_PLAIN_VALUE.getValue());

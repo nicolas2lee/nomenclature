@@ -7,13 +7,14 @@ import tao.usecase.nomenclature.format.adapter.xml.XmlProducer;
 import java.util.Map;
 
 
-public abstract class ContentTypeFactory {
+public abstract class ContentTypeProducer {
     private String httpContentTypeHeader = "Not defined";
 
-    public static ContentTypeFactory create(MediaType format) {
+    public static ContentTypeProducer create(MediaType format) {
         switch (format) {
-            case APPLICATION_XML_VALUE:
-                return new XmlProducer();
+            // TODO: 04/07/2018 no need to support xml
+            //case APPLICATION_XML_VALUE:
+            //    return new XmlProducer();
             case TEXT_PLAIN_VALUE:
             case CSV_VALUE:
                 return new CsvProducer();

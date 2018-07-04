@@ -11,6 +11,8 @@ import tao.usecase.nomenclature.core.repository.sql.mapper.ItemRepositoryMapper;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Profile("!inmemory")
 @Service("nomenclatureRepository")
@@ -29,7 +31,7 @@ public class NomenclatureRepositorySqlImpl implements NomenclatureRepository {
 
     @Override
     public List<Map<String, Object>> getAllItemsBySortPaging(final QueryParameters queryParameters, final Nomenclature defaultNomenclatureConfig) {
-        final String selectedFields = String.join(", ", queryParameters.getSelectedFields().keySet());
+        final String selectedFields = sqlHelper.buildSelectedFields(queryParameters.getSelectedFields());
         final String whereClauses = sqlHelper.buildWhereClause(defaultNomenclatureConfig.getClauses());
         final String orderByFields = queryParameters.getSelectedFields().get(queryParameters.getSortField());
         final String orderByDirection = queryParameters.getSortDirection();
@@ -46,7 +48,7 @@ public class NomenclatureRepositorySqlImpl implements NomenclatureRepository {
 
     @Override
     public Map<String, Object> getItemById(Nomenclature defaultConfig, String id, QueryParameters queryParameters) {
-        final String selectedFields = String.join(", ", queryParameters.getSelectedFields().keySet());
+        final String selectedFields = sqlHelper.buildSelectedFields(queryParameters.getSelectedFields());
         final String whereClauses = sqlHelper.buildWhereClause(defaultConfig.getClauses());
         LOGGER.info(String.format("SELECT %s FROM %s WHERE %s and %s = %s ", selectedFields, defaultConfig.getDatabaseTable(),
                 whereClauses, defaultConfig.getPrimaryKey(), id));

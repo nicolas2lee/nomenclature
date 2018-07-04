@@ -2,14 +2,15 @@ package tao.usecase.nomenclature.format.adapter.xml;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tao.usecase.nomenclature.format.adapter.ContentTypeFactory;
+import tao.usecase.nomenclature.format.adapter.ContentTypeProducer;
 import tao.usecase.nomenclature.format.adapter.MediaType;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class XmlProducer extends ContentTypeFactory {
+// TODO: 04/07/2018 need to refactor xml producer
+public class XmlProducer extends ContentTypeProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(XmlProducer.class);
 
     // TODO: 30/06/2018 should test for this example

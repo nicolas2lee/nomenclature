@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ResponseContentTypeFactoryImplTest {
+public class ResponseContentTypeProducerImplTest {
 
     private ResponseContentTypeFactoryImpl responseContentProducer;
 
@@ -48,32 +48,32 @@ public class ResponseContentTypeFactoryImplTest {
     @Test
     public void should_return_xml_producer_when_headers_contain_application_xml() {
         List<String> list = Arrays.asList("text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
-        ContentTypeFactory contentTypeFactory = responseContentProducer.create(list);
+        ContentTypeProducer contentTypeProducer = responseContentProducer.create(list);
 
-        assertThat(contentTypeFactory).isInstanceOf(XmlProducer.class);
+        assertThat(contentTypeProducer).isInstanceOf(XmlProducer.class);
     }
 
     @Test
     public void should_return_csv_producer_when_headers_contain_text_csv() {
         List<String> list = Arrays.asList("text/html,application/xhtml+xml,text/csv;q=0.9,image/webp,image/apng,*/*;q=0.8");
-        ContentTypeFactory contentTypeFactory = responseContentProducer.create(list);
+        ContentTypeProducer contentTypeProducer = responseContentProducer.create(list);
 
-        assertThat(contentTypeFactory).isInstanceOf(CsvProducer.class);
+        assertThat(contentTypeProducer).isInstanceOf(CsvProducer.class);
     }
 
     @Test
     public void should_return_csv_producer_when_headers_contain_text_plain() {
         List<String> list = Arrays.asList("text/html,application/xhtml+xml,text/plain;q=0.9,image/webp,image/apng,*/*;q=0.8");
-        ContentTypeFactory contentTypeFactory = responseContentProducer.create(list);
+        ContentTypeProducer contentTypeProducer = responseContentProducer.create(list);
 
-        assertThat(contentTypeFactory).isInstanceOf(CsvProducer.class);
+        assertThat(contentTypeProducer).isInstanceOf(CsvProducer.class);
     }
 
     @Test
     public void should_return_json_producer_when_no_header_found() {
         List<String> list = Arrays.asList("text/html,application/xhtml+xml,text/what;q=0.9,image/webp,image/apng,*/*;q=0.8");
-        ContentTypeFactory contentTypeFactory = responseContentProducer.create(list);
+        ContentTypeProducer contentTypeProducer = responseContentProducer.create(list);
 
-        assertThat(contentTypeFactory).isInstanceOf(JsonProducer.class);
+        assertThat(contentTypeProducer).isInstanceOf(JsonProducer.class);
     }
 }

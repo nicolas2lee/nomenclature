@@ -1,5 +1,6 @@
 package tao.usecase.nomenclature.core.repository.in.memory.apache.ignite;
 
+import org.apache.ignite.internal.jdbc.thin.JdbcThinResultSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,10 +63,52 @@ public class IgniteJDBC {
         executeSqlFromClasspath(classpathFileName);
     }
 
-    public List<Map<String, Object>> getData(String sqlString) throws SQLException {
+    List<Map<String, Object>> getMultiRowData(String sqlString) throws SQLException {
         Statement sql = conn.createStatement();
         LOGGER.info(String.format("Trying to execute request: %s", sqlString));
-        return (List<Map<String, Object>>) sql.executeQuery(sqlString);
+        ResultSet resultSet = sql.executeQuery(sqlString);
+        return convertResultSetToListMap(resultSet);
+    }
 
+    int getCount(String sqlString) throws SQLException {
+        Statement sql = conn.createStatement();
+        LOGGER.info(String.format("Trying to execute request: %s", sqlString));
+        ResultSet resultSet = sql.executeQuery(sqlString);
+        int count =0;
+        while (resultSet.next()) count++;
+        return count;
+    }
+
+    private List<Map<String, Object>> convertResultSetToListMap(ResultSet resultSet) throws SQLException {
+        ResultSetMetaData metaData = resultSet.getMetaData();
+        List<Map<String, Object>> result = new ArrayList<>();
+        int columns = metaData.getColumnCount();
+        while(resultSet.next()){
+            Map<String, Object> map = new HashMap<>(columns);
+            for (int i=1; i<=columns; i++){
+                map.put(metaData.getColumnName(i), resultSet.getObject(i));
+            }
+            result.add(map);
+        }
+        return result;
+    }
+
+    Map<String, Object> getSingleRowData(String sqlString) throws SQLException {
+        Statement sql = conn.createStatement();
+        LOGGER.info(String.format("Trying to execute request: %s", sqlString));
+        ResultSet resultSet = sql.executeQuery(sqlString);
+        return convertResultSetTotMap(resultSet);
+    }
+
+    private Map<String, Object> convertResultSetTotMap(ResultSet resultSet) throws SQLException {
+        ResultSetMetaData metaData = resultSet.getMetaData();
+        int columns = metaData.getColumnCount();
+        Map<String, Object> map = new HashMap<>(columns);
+        if (resultSet.next()){
+            for (int i=1; i<=columns; i++){
+                map.put(metaData.getColumnName(i), resultSet.getObject(i));
+            }
+        }
+        return map;
     }
 }

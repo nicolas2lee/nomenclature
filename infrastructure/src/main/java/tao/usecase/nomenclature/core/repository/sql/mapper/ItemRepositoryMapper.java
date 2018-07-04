@@ -22,7 +22,7 @@ public interface ItemRepositoryMapper {
     );
 
     @Transactional(readOnly = true)
-    @Select("SELECT count(*) FROM ${tableName}")
+    @Select("SELECT count(1) FROM ${tableName}")
     Integer count(@Param("tableName") String tableName);
 
     @Transactional(readOnly = true)
