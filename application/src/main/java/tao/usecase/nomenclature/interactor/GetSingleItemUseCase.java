@@ -43,7 +43,6 @@ public class GetSingleItemUseCase extends UseCase<GetSingleItemUseCase.RawRespon
 
     public RawResponse execute(Params params){
         final Nomenclature defaultConfig = nomenclatureConfig.getDefaultConfig(params.getNomenclatureName());
-
         if (!defaultConfig.equals(Nomenclature.NONE)) {
             GetSortPagingItemListUseCase.Params adaptedParams = GetSortPagingItemListUseCase.Params.builder()
                     .nomenclatureName(params.getNomenclatureName())
@@ -59,17 +58,13 @@ public class GetSingleItemUseCase extends UseCase<GetSingleItemUseCase.RawRespon
             try {
                 Map<String, Object> item = nomenclatureRepository.getItemById(defaultConfig, params.getId(), queryParameters);
                 return RawResponse.builder().statusCode(200).header(contentTypeProducer.getHttpContentTypeHeader()).bodyString(contentTypeProducer.produce(item)).build();
-
             } catch (SQLException e) {
                 final String errorMessage = String.format("Sql exception with follow message: %s", e);
                 LOGGER.error(errorMessage);
                 return RawResponse.builder().statusCode(500).bodyString(errorMessage).build();
             }
-
         }
         return RawResponse.builder().statusCode(404).bodyString(String.format("The %s asked is not found", params.getNomenclatureName())).build();
-
-
     }
 
     @Builder
