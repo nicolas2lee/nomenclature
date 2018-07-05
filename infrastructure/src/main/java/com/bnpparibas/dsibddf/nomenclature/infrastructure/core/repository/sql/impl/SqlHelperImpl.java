@@ -37,7 +37,8 @@ public class SqlHelperImpl implements SqlHelper {
     }
 
     List<String> buildVaraibleInValuesStatement(List<Clause> clauses) {
-        if (clauses.isEmpty()) throw new SqlWhereClauseFormatInvalidException("The clauses should not be empty");
+        // TODO: 05/07/2018 review the code
+        if (clauses.isEmpty()) throw new SqlWhereClauseFormatInvalidException("code", "The clauses should not be empty");
         return clauses.stream().map(clause -> String.format("%s IN ( %s )", clause.getName(), buildSqlStringValues(clause.getValues()))).collect(Collectors.toList());
     }
 

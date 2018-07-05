@@ -4,6 +4,7 @@ import com.bnpparibas.dsibddf.nomenclature.application.usecase.core.interactor.G
 import com.bnpparibas.dsibddf.nomenclature.application.usecase.core.interactor.GetSortPagingItemListUseCase;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/v1/nomenclature")
+@RequestMapping(value = "/api/v1/nomenclatures")
 @Slf4j
 public class NomenclaturesController {
 
@@ -43,14 +44,14 @@ public class NomenclaturesController {
         LOGGER.info(String.format("HTTP header: accept : %s", header));
         val userRequest = buildGetSortPagingNomenclatureListParams(nomenclatureName, selectedFields,
                 sortField, sortDirection, pagingPacket, offset, header);
-        GetSortPagingItemListUseCase.RawResponse rawResponse = null;
         try {
-            rawResponse = getSortPagingItemListUseCaseUseCase.execute(userRequest);
+            val rawResponse = getSortPagingItemListUseCaseUseCase.execute(userRequest);
             LOGGER.debug(rawResponse.toString());
             return ResponseEntity.status(rawResponse.getStatusCode()).contentType(MediaType.valueOf(rawResponse.getHeader())).body(rawResponse.getBodyString());
         } catch (SQLException e) {
-            LOGGER.error("Sql exception :", e);
-            return ResponseEntity.status(rawResponse.getStatusCode()).contentType(MediaType.valueOf(rawResponse.getHeader())).body(rawResponse.getBodyString());
+            val errorMessage = String.format("Sql exception: %s", e);
+            LOGGER.error(errorMessage);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
         }
     }
 
@@ -78,8 +79,14 @@ public class NomenclaturesController {
         val header = request.getHeader("accept");
         LOGGER.info(String.format("HTTP header: accept : %s", header));
         val params = buildGetSingleNomenclatureParams(nomenclatureName, id, selectedFields, header);
-        val rawResponse = getSingleItemUseCase.execute(params);
-        return ResponseEntity.status(rawResponse.getStatusCode()).contentType(MediaType.valueOf(rawResponse.getHeader())).body(rawResponse.getBodyString());
+        try {
+            val rawResponse = getSingleItemUseCase.execute(params);
+            return ResponseEntity.status(rawResponse.getStatusCode()).contentType(MediaType.valueOf(rawResponse.getHeader())).body(rawResponse.getBodyString());
+        } catch (SQLException e) {
+            val errorMessage = String.format("Sql exception: %s", e);
+            LOGGER.error(errorMessage);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+        }
     }
 
 

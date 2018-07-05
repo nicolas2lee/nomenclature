@@ -1,7 +1,10 @@
 package com.bnpparibas.dsibddf.nomenclature.application.usecase.core.interactor;
 
+import com.bnpparibas.dsibddf.nomenclature.domain.format.adapter.MediaType;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.bnpparibas.dsibddf.nomenclature.application.usecase.UseCase;
@@ -21,9 +24,8 @@ import java.util.Map;
 import java.util.Optional;
 
 @Named
+@Slf4j
 public class GetSingleItemUseCase extends UseCase<GetSingleItemUseCase.RawResponse, GetSingleItemUseCase.Params> {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(GetSingleItemUseCase.class);
 
     private final NomenclatureConfig nomenclatureConfig;
     private final QueryParametersFactory queryParametersFactory;
@@ -41,8 +43,8 @@ public class GetSingleItemUseCase extends UseCase<GetSingleItemUseCase.RawRespon
         this.nomenclatureRepository = nomenclatureRepository;
     }
 
-    public RawResponse execute(Params params){
-        final Nomenclature defaultConfig = nomenclatureConfig.getDefaultConfig(params.getNomenclatureName());
+    public RawResponse execute(Params params) throws SQLException {
+        val defaultConfig = nomenclatureConfig.getDefaultConfig(params.getNomenclatureName());
         if (!defaultConfig.equals(Nomenclature.NONE)) {
             GetSortPagingItemListUseCase.Params adaptedParams = GetSortPagingItemListUseCase.Params.builder()
                     .nomenclatureName(params.getNomenclatureName())
@@ -53,16 +55,10 @@ public class GetSingleItemUseCase extends UseCase<GetSingleItemUseCase.RawRespon
                     .pagingPacket(Optional.empty())
                     .offset(Optional.empty())
                     .build();
-            final QueryParameters queryParameters = queryParametersFactory.create(adaptedParams, defaultConfig);
-            final ContentTypeProducer contentTypeProducer = contentTypeProducerFactory.create(params.getHeader());
-            try {
-                Map<String, Object> item = nomenclatureRepository.getItemById(defaultConfig, params.getId(), queryParameters);
-                return RawResponse.builder().statusCode(200).header(contentTypeProducer.getHttpContentTypeHeader()).bodyString(contentTypeProducer.produce(item)).build();
-            } catch (SQLException e) {
-                final String errorMessage = String.format("Sql exception with follow message: %s", e);
-                LOGGER.error(errorMessage);
-                return RawResponse.builder().statusCode(500).bodyString(errorMessage).build();
-            }
+            val queryParameters = queryParametersFactory.create(adaptedParams, defaultConfig);
+            val contentTypeProducer = contentTypeProducerFactory.create(params.getHeader());
+            Map<String, Object> item = nomenclatureRepository.getItemById(defaultConfig, params.getId(), queryParameters);
+            return RawResponse.builder().statusCode(200).header(contentTypeProducer.getHttpContentTypeHeader()).bodyString(contentTypeProducer.produce(item)).build();
         }
         return RawResponse.builder().statusCode(404).bodyString(String.format("The %s asked is not found", params.getNomenclatureName())).build();
     }
@@ -70,17 +66,21 @@ public class GetSingleItemUseCase extends UseCase<GetSingleItemUseCase.RawRespon
     @Builder
     @Getter
     public static final class Params {
-        private String id;
+        @Builder.Default
+        private String id = "-1";
         private String nomenclatureName;
         private List<String> header;
-        private Optional<String> selectedFields;
+        @Builder.Default
+        private Optional<String> selectedFields = Optional.empty();
     }
 
     @Getter
     @Builder
     public static final class RawResponse {
-        private Integer statusCode;
-        private String header;
+        @Builder.Default
+        private Integer statusCode = -1;
+        @Builder.Default
+        private String header = MediaType.APPLICATION_JSON_VALUE.getValue();
         private String bodyString;
     }
 }

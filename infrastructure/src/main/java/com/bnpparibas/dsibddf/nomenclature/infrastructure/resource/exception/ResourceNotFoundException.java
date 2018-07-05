@@ -1,14 +1,9 @@
 package com.bnpparibas.dsibddf.nomenclature.infrastructure.resource.exception;
 
-public class ResourceNotFoundException extends RuntimeException {
-    private String code;
+import com.bnpparibas.dsibddf.nomenclature.infrastructure.exception.AbstractApplicationRuntimeException;
 
+public class ResourceNotFoundException extends AbstractApplicationRuntimeException {
     public ResourceNotFoundException(String code, String message) {
-        super(message);
-        this.code = code;
-    }
-
-    public String getCode() {
-        return code;
+        super(code, message);
     }
 }

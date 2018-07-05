@@ -1,9 +1,8 @@
 package com.bnpparibas.dsibddf.nomenclature.application.usecase.core.interactor;
 
 import com.bnpparibas.dsibddf.nomenclature.domain.format.adapter.MediaType;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.bnpparibas.dsibddf.nomenclature.application.usecase.UseCase;
@@ -25,8 +24,8 @@ import java.util.Map;
 import java.util.Optional;
 
 @Named
+@Slf4j
 public class GetSortPagingItemListUseCase extends UseCase<GetSortPagingItemListUseCase.RawResponse, GetSortPagingItemListUseCase.Params> {
-    private final static Logger LOGGER = LoggerFactory.getLogger(GetSortPagingItemListUseCase.class);
 
     private final NomenclatureConfig nomenclatureConfig;
     private final QueryParametersFactory queryParametersFactory;
@@ -46,14 +45,14 @@ public class GetSortPagingItemListUseCase extends UseCase<GetSortPagingItemListU
 
     @Override
     public GetSortPagingItemListUseCase.RawResponse execute(GetSortPagingItemListUseCase.Params params) throws SQLException {
-        final Nomenclature defaultConfig = nomenclatureConfig.getDefaultConfig(params.getNomenclatureName());
+        val defaultConfig = nomenclatureConfig.getDefaultConfig(params.getNomenclatureName());
         if (!defaultConfig.equals(Nomenclature.NONE)) {
-            final QueryParameters queryParameters = queryParametersFactory.create(params, defaultConfig);
-            List<Map<String, Object>> items = nomenclatureRepository.getAllItemsBySortPaging(queryParameters, defaultConfig);
-            final ContentTypeProducer contentTypeProducer = contentTypeProducerFactory.create(params.getHeader());
+            val queryParameters = queryParametersFactory.create(params, defaultConfig);
+            val items = nomenclatureRepository.getAllItemsBySortPaging(queryParameters, defaultConfig);
+            val contentTypeProducer = contentTypeProducerFactory.create(params.getHeader());
             Map<String, Object> resultMap = new HashMap<>();
             resultMap.put(defaultConfig.getResourceName(), items);
-            final Summary summary = defaultConfig.getSummary();
+            val summary = defaultConfig.getSummary();
             if (summary.isEnabled()) {
                 resultMap.put(summary.getNbElementsAttributeName(), items.size());
                 resultMap.put(summary.getTotalAttributeName(), nomenclatureRepository.countAllItems(defaultConfig));
@@ -70,11 +69,16 @@ public class GetSortPagingItemListUseCase extends UseCase<GetSortPagingItemListU
     public static final class Params {
         private String nomenclatureName;
         private List<String> header;
-        private Optional<String> selectedFields;
-        private Optional<String> sortField;
-        private Optional<String> sortDirection;
-        private Optional<String> pagingPacket;
-        private Optional<String> offset;
+        @Builder.Default
+        private Optional<String> selectedFields = Optional.empty();
+        @Builder.Default
+        private Optional<String> sortField = Optional.empty();
+        @Builder.Default
+        private Optional<String> sortDirection = Optional.empty();
+        @Builder.Default
+        private Optional<String> pagingPacket = Optional.empty();
+        @Builder.Default
+        private Optional<String> offset = Optional.empty();
     }
 
     @Getter
