@@ -66,6 +66,7 @@ public class GetSortPagingItemListUseCase extends UseCase<GetSortPagingItemListU
 
     @Builder
     @Getter
+    @ToString
     public static final class Params {
         private String nomenclatureName;
         private List<String> header;
