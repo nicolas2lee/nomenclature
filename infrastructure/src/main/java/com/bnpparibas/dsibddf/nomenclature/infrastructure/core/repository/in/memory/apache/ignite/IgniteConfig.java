@@ -13,5 +13,4 @@ public class IgniteConfig {
     public Ignite igniteInstance() {
         return Ignition.start("config/example-ignite.xml");
     }
-
 }

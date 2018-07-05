@@ -1,13 +1,13 @@
 package com.bnpparibas.dsibddf.nomenclature.application.usecase.core.service.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.bnpparibas.dsibddf.nomenclature.application.usecase.core.interactor.GetSortPagingItemListUseCase;
+import com.bnpparibas.dsibddf.nomenclature.application.usecase.core.service.QueryParametersFactory;
 import com.bnpparibas.dsibddf.nomenclature.domain.core.model.Nomenclature;
 import com.bnpparibas.dsibddf.nomenclature.domain.core.model.Paging;
 import com.bnpparibas.dsibddf.nomenclature.domain.core.model.QueryParameters;
 import com.bnpparibas.dsibddf.nomenclature.domain.core.model.Sort;
-import com.bnpparibas.dsibddf.nomenclature.application.usecase.core.interactor.GetSortPagingItemListUseCase;
-import com.bnpparibas.dsibddf.nomenclature.application.usecase.core.service.QueryParametersFactory;
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -15,20 +15,17 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Named
 class QueryParametersFactoryImpl implements QueryParametersFactory {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(QueryParametersFactoryImpl.class);
-
     @Inject
-    QueryParametersFactoryImpl() {
-
-    }
+    QueryParametersFactoryImpl() {}
 
     @Override
     public QueryParameters create(GetSortPagingItemListUseCase.Params params, Nomenclature defaultNomenclatureConfig) {
-        final Sort defaultSort = defaultNomenclatureConfig.getSort();
-        final Paging defaultPaging = defaultNomenclatureConfig.getPaging();
+        val defaultSort = defaultNomenclatureConfig.getSort();
+        val defaultPaging = defaultNomenclatureConfig.getPaging();
         return QueryParameters.builder()
                 //25/06/2018 current is for sortField=field1,field2,field3
                 .selectedFields(fixSelectedFields(extractSelectedFields(params.getSelectedFields()), defaultNomenclatureConfig.getOutput()))

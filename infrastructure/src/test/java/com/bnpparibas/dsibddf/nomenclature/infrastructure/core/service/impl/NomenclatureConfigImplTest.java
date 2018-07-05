@@ -36,6 +36,13 @@ public class NomenclatureConfigImplTest {
     }
 
     @Test
+    public void should_return_nomenclature_none_when_nomenclature_is_not_enabled() {
+        Nomenclature result = nomenclatureConfigImpl.getDefaultConfig("pays_not_enabled");
+
+        assertThat(result).isEqualTo(Nomenclature.NONE);
+    }
+
+    @Test
     public void should_return_nomencalture_when_nomenclature_is_enabled() {
         Optional<Nomenclature> result = nomenclatureConfigImpl.getOptioanlDefaultConfig("pays_enabled");
 

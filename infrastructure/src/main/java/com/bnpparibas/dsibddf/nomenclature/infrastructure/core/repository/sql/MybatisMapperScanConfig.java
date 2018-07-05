@@ -7,5 +7,5 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 @Profile("!inmemory")
 @MapperScan("com.bnpparibas.dsibddf.nomenclature.infrastructure")
-class MybatisMapperScanConfig {
+public class MybatisMapperScanConfig {
 }

@@ -14,7 +14,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @MybatisTest
-@Ignore
 public class ItemRepositoryMapperTest {
 
     @Autowired
@@ -47,15 +46,6 @@ public class ItemRepositoryMapperTest {
         Integer result = itemRepositoryMapper.count(tableName);
 
         assertThat(result).isGreaterThan(0);
-    }
-
-    @Test
-    public void should_return_count_value_greaterthan_zero_with_sql_injection() {
-        final String tableName = "t_pays; delete from t_pays;--";
-        Integer result1 = itemRepositoryMapper.count(tableName);
-        Integer result2 = itemRepositoryMapper.count(tableName);
-
-        assertThat(result1).isEqualTo(result2);
     }
 
     @Test

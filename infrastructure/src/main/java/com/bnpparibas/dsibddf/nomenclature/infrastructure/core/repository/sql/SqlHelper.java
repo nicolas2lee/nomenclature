@@ -1,15 +1,11 @@
 package com.bnpparibas.dsibddf.nomenclature.infrastructure.core.repository.sql;
 
-import com.bnpparibas.dsibddf.nomenclature.domain.core.model.Clause;
-import com.bnpparibas.dsibddf.nomenclature.domain.core.model.Paging;
-
-import java.util.List;
-import java.util.Map;
+import com.bnpparibas.dsibddf.nomenclature.domain.core.model.Nomenclature;
+import com.bnpparibas.dsibddf.nomenclature.domain.core.model.QueryParameters;
+import com.bnpparibas.dsibddf.nomenclature.infrastructure.core.repository.sql.impl.SqlHelperResult;
 
 public interface SqlHelper {
-    String buildSelectedFields(Map<String, String> selectedFields);
+    SqlHelperResult buildAllItemsBySortPaging(final QueryParameters queryParameters, final Nomenclature defaultConfig);
 
-    String buildLimitClause(Paging paging, String offset, String pagingPacket);
-
-    String buildWhereClause(List<Clause> clauses);
+    SqlHelperResult buildSingleItem(final QueryParameters queryParameters, final Nomenclature defaultConfig);
 }
