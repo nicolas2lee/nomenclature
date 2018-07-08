@@ -66,14 +66,16 @@ public class IgniteJDBC {
         executeSqlFromClasspath(classpathFileName);
     }
 
-    List<Map<String, Object>> getMultiRowData(String sqlString) throws SQLException {
+    List<Map<String, Object>> getMultiRowData(String sqlString) throws SQLException, ClassNotFoundException {
+        if (conn == null) conn = createConnection();
         val sql = conn.createStatement();
         LOGGER.info(String.format("Trying to execute request: %s", sqlString));
         val resultSet = sql.executeQuery(sqlString);
         return convertResultSetToListMap(resultSet);
     }
 
-    int getCount(String sqlString) throws SQLException {
+    int getCount(String sqlString) throws SQLException, ClassNotFoundException {
+        if (conn == null) conn = createConnection();
         val sql = conn.createStatement();
         LOGGER.info(String.format("Trying to execute request: %s", sqlString));
         val resultSet = sql.executeQuery(sqlString);
@@ -96,7 +98,8 @@ public class IgniteJDBC {
         return result;
     }
 
-    Map<String, Object> getSingleRowData(String sqlString) throws SQLException {
+    Map<String, Object> getSingleRowData(String sqlString) throws SQLException, ClassNotFoundException {
+        if (conn == null) conn = createConnection();
         val sql = conn.createStatement();
         LOGGER.info(String.format("Trying to execute request: %s", sqlString));
         val resultSet = sql.executeQuery(sqlString);

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="true"?>
+<TableReferenceList codeApplication="AP08017" nom="pays_ISO">
+    <ligne>
+        <Attribut nom="nep_code_lang">en</Attribut>
+        <Attribut nom="nep_code_pays">US</Attribut>
+        <Attribut nom="cd_pays_iso2a">AI</Attribut>
+        <Attribut nom="cd_pays_iso3a">AIA</Attribut>
+        <Attribut nom="cd_pays_onu3n">660</Attribut>
+        <Attribut nom="lb_abrege">660</Attribut>
+        <Attribut nom="cycledevie_dt_debut_validite">2013-02-15</Attribut>
+        <Attribut nom="cycledevie_ind_statut_validi">0000000000</Attribut>
+        <Attribut nom="cycledevie_dt_maj_fonctionne">2013-02-15</Attribut>
+    </ligne>
+</TableReferenceList>

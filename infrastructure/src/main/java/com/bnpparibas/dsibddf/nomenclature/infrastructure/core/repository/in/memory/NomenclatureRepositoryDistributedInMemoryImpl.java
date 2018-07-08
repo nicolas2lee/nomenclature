@@ -21,17 +21,17 @@ class NomenclatureRepositoryDistributedInMemoryImpl implements NomenclatureRepos
     }
 
     @Override
-    public List<Map<String, Object>> getAllItemsBySortPaging(QueryParameters queryParameters, Nomenclature defaultNomenclatureConfig) throws SQLException {
+    public List<Map<String, Object>> getAllItemsBySortPaging(QueryParameters queryParameters, Nomenclature defaultNomenclatureConfig) throws SQLException, ClassNotFoundException {
         return distributedInMemoryRepository.getAllItemsBySortPaging(queryParameters, defaultNomenclatureConfig);
     }
 
     @Override
-    public Integer countAllItems(Nomenclature defaultConfig) throws SQLException {
+    public Integer countAllItems(Nomenclature defaultConfig) throws SQLException, ClassNotFoundException {
         return distributedInMemoryRepository.countAllItems(defaultConfig);
     }
 
     @Override
-    public Map<String, Object> getItemById(Nomenclature defaultConfig, String id, QueryParameters queryParameters) throws SQLException {
+    public Map<String, Object> getItemById(Nomenclature defaultConfig, String id, QueryParameters queryParameters) throws SQLException, ClassNotFoundException {
         return distributedInMemoryRepository.getItemById(defaultConfig, id, queryParameters);
     }
 }

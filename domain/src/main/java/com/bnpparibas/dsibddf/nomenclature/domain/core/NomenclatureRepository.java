@@ -9,9 +9,9 @@ import java.util.Map;
 
 public interface NomenclatureRepository {
 
-    List<Map<String, Object>> getAllItemsBySortPaging(final QueryParameters queryParameters, final Nomenclature defaultNomenclatureConfig) throws SQLException;
+    List<Map<String, Object>> getAllItemsBySortPaging(final QueryParameters queryParameters, final Nomenclature defaultNomenclatureConfig) throws SQLException, ClassNotFoundException;
 
-    Integer countAllItems(Nomenclature defaultConfig) throws SQLException;
+    Integer countAllItems(Nomenclature defaultConfig) throws SQLException, ClassNotFoundException;
 
-    Map<String, Object> getItemById(Nomenclature defaultConfig, String id, QueryParameters queryParameters) throws SQLException;
+    Map<String, Object> getItemById(Nomenclature defaultConfig, String id, QueryParameters queryParameters) throws SQLException, ClassNotFoundException;
 }

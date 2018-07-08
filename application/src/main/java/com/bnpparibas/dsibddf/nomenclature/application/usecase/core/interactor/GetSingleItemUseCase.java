@@ -43,7 +43,7 @@ public class GetSingleItemUseCase extends UseCase<GetSingleItemUseCase.RawRespon
         this.nomenclatureRepository = nomenclatureRepository;
     }
 
-    public RawResponse execute(Params params) throws SQLException {
+    public RawResponse execute(Params params) throws SQLException, ClassNotFoundException {
         val defaultConfig = nomenclatureConfig.getDefaultConfig(params.getNomenclatureName());
         if (!defaultConfig.equals(Nomenclature.NONE)) {
             GetSortPagingItemListUseCase.Params adaptedParams = GetSortPagingItemListUseCase.Params.builder()

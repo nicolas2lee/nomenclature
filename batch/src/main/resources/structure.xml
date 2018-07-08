@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="true"?>
+<ns2:TableReferenceList codeApplication="AP08017" nom="pays_ISO">
+    <ns2:Attribut nom="nep_code_lang">en</ns2:Attribut>
+    <ns2:Attribut nom="nep_code_pays">US</ns2:Attribut>
+    <ns2:Attribut nom="cd_pays_iso2a">AI</ns2:Attribut>
+    <ns2:Attribut nom="cd_pays_iso3a">AIA</ns2:Attribut>
+    <ns2:Attribut nom="cd_pays_onu3n">660</ns2:Attribut>
+    <ns2:Attribut nom="lb_abrege">660</ns2:Attribut>
+    <ns2:Attribut nom="cycledevie_dt_debut_validite">2013-02-15</ns2:Attribut>
+    <ns2:Attribut nom="cycledevie_ind_statut_validi">0000000000</ns2:Attribut>
+    <ns2:Attribut nom="cycledevie_dt_maj_fonctionne">2013-02-15</ns2:Attribut>
+</ns2:TableReferenceList>

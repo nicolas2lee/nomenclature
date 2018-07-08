@@ -45,7 +45,7 @@ public class GetSortPagingItemListUseCase extends UseCase<GetSortPagingItemListU
     }
 
     @Override
-    public GetSortPagingItemListUseCase.RawResponse execute(GetSortPagingItemListUseCase.Params params) throws SQLException {
+    public GetSortPagingItemListUseCase.RawResponse execute(GetSortPagingItemListUseCase.Params params) throws SQLException, ClassNotFoundException {
         val defaultConfig = nomenclatureConfig.getDefaultConfig(params.getNomenclatureName());
         if (!defaultConfig.equals(Nomenclature.NONE)) {
             val queryParameters = queryParametersFactory.create(params, defaultConfig);

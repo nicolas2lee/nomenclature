@@ -29,7 +29,7 @@ class ApacheIgniteRepositoryImpl implements DistributedInMemoryRepository {
     }
 
     @Override
-    public List<Map<String, Object>> getAllItemsBySortPaging(QueryParameters queryParameters, Nomenclature defaultConfig) throws SQLException {
+    public List<Map<String, Object>> getAllItemsBySortPaging(QueryParameters queryParameters, Nomenclature defaultConfig) throws SQLException, ClassNotFoundException {
         val result = sqlHelper.buildAllItemsBySortPaging(queryParameters, defaultConfig);
         val sqlString = String.format("SELECT %s FROM %s WHERE %s order by %s %s %s", result.getSelectedFields(), defaultConfig.getDatabaseTable(),
                 result.getWhereClauses(), result.getOrderByFields(), result.getOrderByDirection(), result.getLimitClause());
@@ -38,14 +38,14 @@ class ApacheIgniteRepositoryImpl implements DistributedInMemoryRepository {
     }
 
     @Override
-    public Integer countAllItems(Nomenclature defaultConfig) throws SQLException {
+    public Integer countAllItems(Nomenclature defaultConfig) throws SQLException, ClassNotFoundException {
         val sqlString = String.format("SELECT count(1) FROM %s", defaultConfig.getDatabaseTable());
         LOGGER.info(sqlString);
         return igniteJDBC.getCount(sqlString);
     }
 
     @Override
-    public Map<String, Object> getItemById(Nomenclature defaultConfig, String id, QueryParameters queryParameters) throws SQLException {
+    public Map<String, Object> getItemById(Nomenclature defaultConfig, String id, QueryParameters queryParameters) throws SQLException, ClassNotFoundException {
         val result = sqlHelper.buildSingleItem(queryParameters, defaultConfig);
         val sqlSting = String.format("SELECT %s FROM %s WHERE %s and %s = %s ", result.getSelectedFields(), defaultConfig.getDatabaseTable(),
                 result.getWhereClauses(), defaultConfig.getPrimaryKey(), id);

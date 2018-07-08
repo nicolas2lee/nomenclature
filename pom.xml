@@ -14,6 +14,7 @@
         <module>domain</module>
         <module>infrastructure</module>
         <module>exposition</module>
+        <module>batch</module>
     </modules>
 
     <properties>

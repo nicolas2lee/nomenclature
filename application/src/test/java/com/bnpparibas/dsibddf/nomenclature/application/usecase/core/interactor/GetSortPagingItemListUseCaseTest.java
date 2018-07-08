@@ -36,7 +36,7 @@ public class GetSortPagingItemListUseCaseTest {
     }
 
     @Test
-    public void should_retun_rawresponse_with_status_code_404_when_nomenclature_yaml_file_not_found() throws SQLException {
+    public void should_retun_rawresponse_with_status_code_404_when_nomenclature_yaml_file_not_found() throws SQLException, ClassNotFoundException {
         given(nomenclatureConfig.getDefaultConfig(any())).willReturn(Nomenclature.NONE);
         val params = GetSortPagingItemListUseCase.Params.builder().build();
 

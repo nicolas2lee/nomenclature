@@ -48,7 +48,7 @@ public class NomenclaturesController {
             val rawResponse = getSortPagingItemListUseCaseUseCase.execute(userRequest);
             LOGGER.debug(rawResponse.toString());
             return ResponseEntity.status(rawResponse.getStatusCode()).contentType(MediaType.valueOf(rawResponse.getHeader())).body(rawResponse.getBodyString());
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             val errorMessage = String.format("Sql exception: %s", e);
             LOGGER.error(errorMessage);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
@@ -82,7 +82,7 @@ public class NomenclaturesController {
         try {
             val rawResponse = getSingleItemUseCase.execute(params);
             return ResponseEntity.status(rawResponse.getStatusCode()).contentType(MediaType.valueOf(rawResponse.getHeader())).body(rawResponse.getBodyString());
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             val errorMessage = String.format("Sql exception: %s", e);
             LOGGER.error(errorMessage);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
