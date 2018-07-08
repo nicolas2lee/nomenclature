@@ -23,8 +23,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@Named
+
 @Slf4j
+@Named
 public class GetSortPagingItemListUseCase extends UseCase<GetSortPagingItemListUseCase.RawResponse, GetSortPagingItemListUseCase.Params> {
 
     private final NomenclatureConfig nomenclatureConfig;
@@ -33,7 +34,7 @@ public class GetSortPagingItemListUseCase extends UseCase<GetSortPagingItemListU
     private final ContentTypeProducerFactory contentTypeProducerFactory;
 
     @Inject
-    GetSortPagingItemListUseCase(QueryParametersFactory queryParametersFactory,
+    public GetSortPagingItemListUseCase(QueryParametersFactory queryParametersFactory,
                                  NomenclatureRepository nomenclatureRepository,
                                  ContentTypeProducerFactory contentTypeProducerFactory,
                                  NomenclatureConfig nomenclatureConfig){

@@ -20,6 +20,7 @@ import java.util.Map;
 public class NomenclatureRepositorySqlImpl implements NomenclatureRepository {
 
     private final ItemRepositoryMapper itemRepositoryMapper;
+    // TODO: 08/07/2018 need to refactor provider
     private final SqlHelper sqlHelper;
 
     NomenclatureRepositorySqlImpl(ItemRepositoryMapper itemRepositoryMapper,

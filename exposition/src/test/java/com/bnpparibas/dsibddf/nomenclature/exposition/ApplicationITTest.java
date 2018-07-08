@@ -3,7 +3,6 @@ package com.bnpparibas.dsibddf.nomenclature.exposition;
 import lombok.val;
 import org.junit.Test;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.test.context.SpringBootTest;
 
 public class ApplicationITTest {
 
