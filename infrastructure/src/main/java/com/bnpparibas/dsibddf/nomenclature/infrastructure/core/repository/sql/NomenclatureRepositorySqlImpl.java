@@ -3,14 +3,13 @@ package com.bnpparibas.dsibddf.nomenclature.infrastructure.core.repository.sql;
 import com.bnpparibas.dsibddf.nomenclature.infrastructure.core.repository.sql.mapper.ItemRepositoryMapper;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import com.bnpparibas.dsibddf.nomenclature.domain.core.NomenclatureRepository;
 import com.bnpparibas.dsibddf.nomenclature.domain.core.model.Nomenclature;
 import com.bnpparibas.dsibddf.nomenclature.domain.core.model.QueryParameters;
 
+import javax.inject.Provider;
 import java.util.List;
 import java.util.Map;
 
@@ -20,18 +19,19 @@ import java.util.Map;
 public class NomenclatureRepositorySqlImpl implements NomenclatureRepository {
 
     private final ItemRepositoryMapper itemRepositoryMapper;
-    // TODO: 08/07/2018 need to refactor provider
-    private final SqlHelper sqlHelper;
+
+    private final Provider<SqlHelper> sqlHelperProvider;
 
     NomenclatureRepositorySqlImpl(ItemRepositoryMapper itemRepositoryMapper,
-                                  SqlHelper sqlHelper) {
+                                  Provider<SqlHelper> sqlHelperProvider) {
         this.itemRepositoryMapper = itemRepositoryMapper;
-        this.sqlHelper = sqlHelper;
+        this.sqlHelperProvider = sqlHelperProvider;
     }
 
 
     @Override
     public List<Map<String, Object>> getAllItemsBySortPaging(final QueryParameters queryParameters, final Nomenclature defaultConfig) {
+        val sqlHelper = sqlHelperProvider.get();
         val result = sqlHelper.buildAllItemsBySortPaging(queryParameters, defaultConfig);
         LOGGER.info(String.format("SELECT %s FROM %s WHERE %s order by %s %s %s", result.getSelectedFields(), defaultConfig.getDatabaseTable(),
                 result.getWhereClauses(), result.getOrderByFields(), result.getOrderByDirection(), result.getLimitClause()));
@@ -46,6 +46,7 @@ public class NomenclatureRepositorySqlImpl implements NomenclatureRepository {
 
     @Override
     public Map<String, Object> getItemById(Nomenclature defaultConfig, String id, QueryParameters queryParameters) {
+        val sqlHelper = sqlHelperProvider.get();
         val result = sqlHelper.buildSingleItem(queryParameters, defaultConfig);
         LOGGER.info(String.format("SELECT %s FROM %s WHERE %s and %s = %s ", result.getSelectedFields(), defaultConfig.getDatabaseTable(),
                 result.getWhereClauses(), defaultConfig.getPrimaryKey(), id));
