@@ -35,6 +35,8 @@
         <swagger.version>2.7.0</swagger.version>
         <servlet.version>3.1.0</servlet.version>
         <ignite.version>2.5.0</ignite.version>
+        <stax.version>1.0.1</stax.version>
+        <opencsv.version>4.2</opencsv.version>
     </properties>
 
     <dependencyManagement>
@@ -110,6 +112,16 @@
                 <groupId>org.apache.ignite</groupId>
                 <artifactId>ignite-spring</artifactId>
                 <version>${ignite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>stax</groupId>
+                <artifactId>stax-api</artifactId>
+                <version>${stax.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.opencsv</groupId>
+                <artifactId>opencsv</artifactId>
+                <version>${opencsv.version}</version>
             </dependency>
             <!-- test dependency -->
             <dependency>

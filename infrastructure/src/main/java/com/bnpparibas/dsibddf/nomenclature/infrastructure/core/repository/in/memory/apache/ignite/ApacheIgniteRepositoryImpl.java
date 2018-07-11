@@ -53,4 +53,9 @@ class ApacheIgniteRepositoryImpl implements DistributedInMemoryRepository {
         LOGGER.info(sqlSting);
         return igniteJDBC.getSingleRowData(sqlSting);
     }
+
+    @Override
+    public void insertDataFromString(String s) throws SQLException, ClassNotFoundException {
+        igniteJDBC.insertDataFromString(s);
+    }
 }

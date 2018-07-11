@@ -1,13 +1,15 @@
 package com.bnpparibas.dsibddf.nomenclature.exposition;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan("com.bnpparibas.dsibddf.nomenclature")
+@ComponentScan(basePackages = {"com.bnpparibas.dsibddf.nomenclature.application",
+        "com.bnpparibas.dsibddf.nomenclature.domain",
+        "com.bnpparibas.dsibddf.nomenclature.infrastructure",
+        "com.bnpparibas.dsibddf.nomenclature.exposition"})
 //@EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
 public class Application {
     public static void main(String[] args) {

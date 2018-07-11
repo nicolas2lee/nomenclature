@@ -1,12 +1,38 @@
-<?xml version="1.0" encoding="UTF-8" standalone="true"?>
-<ns2:TableReferenceList codeApplication="AP08017" nom="pays_ISO">
-    <ns2:Attribut nom="nep_code_lang">en</ns2:Attribut>
-    <ns2:Attribut nom="nep_code_pays">US</ns2:Attribut>
-    <ns2:Attribut nom="cd_pays_iso2a">AI</ns2:Attribut>
-    <ns2:Attribut nom="cd_pays_iso3a">AIA</ns2:Attribut>
-    <ns2:Attribut nom="cd_pays_onu3n">660</ns2:Attribut>
-    <ns2:Attribut nom="lb_abrege">660</ns2:Attribut>
-    <ns2:Attribut nom="cycledevie_dt_debut_validite">2013-02-15</ns2:Attribut>
-    <ns2:Attribut nom="cycledevie_ind_statut_validi">0000000000</ns2:Attribut>
-    <ns2:Attribut nom="cycledevie_dt_maj_fonctionne">2013-02-15</ns2:Attribut>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:TableReferenceList xmlns:ns2="NETP_structure" xmlns="NETP_donnees" codeApplication="AP08017" nom="pays_ISO">
+    <ns2:TableReference codeApplication="AP08017" nom="Pays_ISO" nomPhysique="TB019NRF">
+        <ns2:Attribut nom="nep_code_lang" nomPhysique="C_NEP_CODE_LANG">
+            <ns2:Type type="String"/>
+        </ns2:Attribut>
+        <ns2:Attribut nom="nep_code_pays" nomPhysique="C_NEP_CODE_PAYS">
+            <ns2:Type type="String"/>
+        </ns2:Attribut>
+        <ns2:Attribut nom="cd_pays_iso2a" nomPhysique="cd_pays_iso2a">
+            <ns2:Type type="String"/>
+        </ns2:Attribut>
+        <ns2:Attribut nom="cd_pays_iso3a" nomPhysique="cd_pays_iso3a">
+            <ns2:Type type="String"/>
+        </ns2:Attribut>
+        <ns2:Attribut nom="cd_pays_onu3n" nomPhysique="cd_pays_onu3n">
+            <ns2:Type type="String"/>
+        </ns2:Attribut>
+        <ns2:Attribut nom="lb_abrege" nomPhysique="lb_abrege">
+            <ns2:Type type="String"/>
+        </ns2:Attribut>
+        <ns2:Attribut nom="lb_complet" nomPhysique="lb_complet">
+            <ns2:Type type="String"/>
+        </ns2:Attribut>
+        <ns2:Attribut nom="remarque" nomPhysique="remarque">
+            <ns2:Type type="String"/>
+        </ns2:Attribut>
+        <ns2:Attribut nom="cycledevie_dt_debut_validite">
+            <ns2:Type type="String"/>
+        </ns2:Attribut>
+        <ns2:Attribut nom="cycledevie_ind_statut_validi">
+            <ns2:Type type="String"/>
+        </ns2:Attribut>
+        <ns2:Attribut nom="cycledevie_dt_maj_fonctionne">
+            <ns2:Type type="String"/>
+        </ns2:Attribut>
+    </ns2:TableReference>
 </ns2:TableReferenceList>

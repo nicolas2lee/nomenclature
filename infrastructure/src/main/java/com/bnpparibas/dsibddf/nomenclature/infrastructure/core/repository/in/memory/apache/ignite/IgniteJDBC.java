@@ -3,8 +3,6 @@ package com.bnpparibas.dsibddf.nomenclature.infrastructure.core.repository.in.me
 import com.bnpparibas.dsibddf.nomenclature.infrastructure.resource.exception.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
@@ -13,7 +11,10 @@ import org.springframework.util.StreamUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +33,7 @@ public class IgniteJDBC {
 
     private static Connection conn;
 
+    // TODO: 10/07/2018 refactor with object pool pattern
     private Connection createConnection() throws SQLException, ClassNotFoundException {
         try {
             LOGGER.info(String.format("ignite.jdbc.driver.class.name property found in config file is: %s",igniteJdbcThinDriverClassName ));
@@ -46,10 +48,10 @@ public class IgniteJDBC {
     }
 
     public void createDatabaseTables(String classpathFileName) throws SQLException, ClassNotFoundException {
-        executeSqlFromClasspath(classpathFileName);
+        executeSqlFromClasspathFile(classpathFileName);
     }
 
-    private void executeSqlFromClasspath(String classpathFileName) throws SQLException, ClassNotFoundException {
+    private void executeSqlFromClasspathFile(String classpathFileName) throws SQLException, ClassNotFoundException {
         if (conn == null) conn = createConnection();
         val sql = conn.createStatement();
         try{
@@ -62,8 +64,14 @@ public class IgniteJDBC {
         }
     }
 
-    public void insertData(String classpathFileName) throws SQLException, ClassNotFoundException {
-        executeSqlFromClasspath(classpathFileName);
+    public void insertDataFromClasspathFile(String classpathFileName) throws SQLException, ClassNotFoundException {
+        executeSqlFromClasspathFile(classpathFileName);
+    }
+
+    void insertDataFromString(String sqlString) throws SQLException, ClassNotFoundException {
+        if (conn == null) conn = createConnection();
+        val sql = conn.createStatement();
+        sql.executeUpdate(sqlString);
     }
 
     List<Map<String, Object>> getMultiRowData(String sqlString) throws SQLException, ClassNotFoundException {
