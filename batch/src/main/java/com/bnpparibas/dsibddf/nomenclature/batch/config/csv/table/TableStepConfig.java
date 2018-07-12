@@ -4,7 +4,6 @@ import com.bnpparibas.dsibddf.nomenclature.infrastructure.core.repository.in.mem
 import lombok.val;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,18 +13,18 @@ import java.util.Map;
 public class TableStepConfig {
     private final StepBuilderFactory stepBuilderFactory;
 
-    @Autowired
-    private DistributedInMemoryRepository distributedInMemoryRepository;
+    private final DistributedInMemoryRepository distributedInMemoryRepository;
 
-    TableStepConfig(StepBuilderFactory stepBuilderFactory) {
+    TableStepConfig(StepBuilderFactory stepBuilderFactory, DistributedInMemoryRepository distributedInMemoryRepository) {
         this.stepBuilderFactory = stepBuilderFactory;
+        this.distributedInMemoryRepository = distributedInMemoryRepository;
     }
 
 
     @Bean(value = "createTableStep")
     public Step createTableStep() {
-        return stepBuilderFactory.get("readTableStructureFromCsv")
-                .<Map<String, String>, Map<String, String>>chunk(10)
+        return stepBuilderFactory.get("createTableStep")
+                .<Map<String, String>, Map<String, String>>chunk(1)
                 .reader(csvTableReader())
                 .writer(igniteTableWriter())
                 .build();

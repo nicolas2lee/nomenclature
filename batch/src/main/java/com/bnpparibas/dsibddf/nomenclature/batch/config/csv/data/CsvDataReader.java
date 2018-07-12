@@ -19,7 +19,7 @@ class CsvDataReader implements ItemReader<Map<String, String>> {
 
     @Override
     public Map<String, String> read() throws IOException {
-        LOGGER.info(String.format("start reading table & fields from csv file %s", fileName));
+        LOGGER.info(String.format("start reading data from csv file %s", fileName));
         val file = this.getClass().getClassLoader().getResource(fileName).getFile();
         return new CSVReaderHeaderAware(new FileReader(file)).readMap();
     }

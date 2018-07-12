@@ -1,11 +1,13 @@
 package com.bnpparibas.dsibddf.nomenclature.batch.config.csv.table;
 
+import com.bnpparibas.dsibddf.nomenclature.infrastructure.core.repository.in.memory.DistributedInMemoryRepository;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.test.JobLauncherTestUtils;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -17,12 +19,13 @@ import javax.annotation.Resource;
 @EnableBatchProcessing
 class TableJobConfig {
 
-
     private final JobBuilderFactory jobBuilderFactory;
-    @Resource(name = "readTableStructureFromCsv")
+
+    @MockBean
+    private DistributedInMemoryRepository distributedInMemoryRepository;
+
+    @Resource(name = "createTableStep")
     private Step step;
-    @Resource(name = "readTableStructureFromCsv")
-    private Step readTableStructureFromCsv;
 
     TableJobConfig(JobBuilderFactory jobBuilderFactory) {
         this.jobBuilderFactory = jobBuilderFactory;

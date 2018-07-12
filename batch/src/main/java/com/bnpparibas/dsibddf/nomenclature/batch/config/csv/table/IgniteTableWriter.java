@@ -24,6 +24,17 @@ class IgniteTableWriter implements ItemWriter<Map<String, String>> {
         this.distributedInMemoryRepository = distributedInMemoryRepository;
     }
 
+    @Override
+    public void write(List<? extends Map<String, String>> list) throws Exception {
+        LOGGER.info(String.format("start creating table in ignite memory"));
+/*        val finalSqlString = buildCreateTableSqlString(list);
+        if (finalSqlString.isPresent()){
+            LOGGER.info(String.format("The below sql statement will be executed: %s",  finalSqlString.get()));
+//            distributedInMemoryRepository.insertDataFromString(finalSqlString.get());
+            return;
+        }*/
+//        throw new CreateTableSqlEmptyException();
+    }
 
     private Function<Map<String, String>, String> buildSingleCreateTabelSqlString() {
         return map -> {
@@ -37,25 +48,15 @@ class IgniteTableWriter implements ItemWriter<Map<String, String>> {
     }
 
     private String buildSingleCreateTabelSqlString(Map<String, String> map) {
-        val list = map.entrySet().stream().map(x -> String.format("%s %s", x.getKey(), x.getValue()))
+        val list = map.entrySet().stream().map(x -> String.format("%s %s", x.getKey().trim(), x.getValue().trim()))
                 .collect(Collectors.toList());
         return String.join(",", list);
     }
 
-    @Override
-    public void write(List<? extends Map<String, String>> list) throws Exception {
-        val finalSqlString = buildCreateTableSqlString(list);
-        if (finalSqlString.isPresent())
-            distributedInMemoryRepository.insertDataFromString(finalSqlString.get());
-        throw new CreateTableSqlEmptyException();
-    }
-
     Optional<String> buildCreateTableSqlString(List<? extends Map<String, String>> list) {
-        val finalSqlString = list.stream()
+        return list.stream()
                 .map(buildSingleCreateTabelSqlString())
                 .peek(LOGGER::debug)
                 .reduce(String::concat);
-        LOGGER.info(String.format("The below script will be executed, and add to ignite memory: %s", finalSqlString));
-        return finalSqlString;
     }
 }

@@ -26,6 +26,7 @@ class IgniteDataWriter implements ItemWriter<Map<String, String>> {
 
     @Override
     public void write(List<? extends Map<String, String>> list) throws Exception {
+        LOGGER.info("Start write csv data into ignite memory");
         val sqlScriptString = buildSqlBulkInsertString(list);
         distributedInMemoryRepository.insertDataFromString(sqlScriptString);
     }

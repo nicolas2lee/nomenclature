@@ -31,7 +31,6 @@ public class DataStepConfig {
         return stepBuilderFactory.get("insertDataStep")
                 .<Map<String, String>, Map<String, String>>chunk(10)
                 .reader(csvDataReader())
-//                .processor(processor())
                 .writer(igniteDataWriter())
                 .build();
     }

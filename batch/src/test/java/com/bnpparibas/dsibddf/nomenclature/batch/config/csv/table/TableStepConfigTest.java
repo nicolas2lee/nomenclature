@@ -2,6 +2,7 @@ package com.bnpparibas.dsibddf.nomenclature.batch.config.csv.table;
 
 import lombok.val;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.batch.core.ExitStatus;
@@ -14,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TableJobConfig.class})
+@Ignore
 public class TableStepConfigTest {
 
     @Autowired
