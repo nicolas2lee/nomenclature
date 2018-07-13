@@ -37,8 +37,11 @@ pipeline {
       stage('Quality') {
         steps {
           withMaven() {
-            sh './mvnw sonar:sonar -Dsonar.projectKey="nomenclature"\
+          // not enough memory for docker in a single machine, so skip this in single machine test
+           /*
+           sh './mvnw sonar:sonar -Dsonar.projectKey="nomenclature"\
                 -Pdocker'
+           */
           }
 
         }
