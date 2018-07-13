@@ -1,48 +1,45 @@
 pipeline {
-agent any
-tools {
-    maven 'MAVEN-3.5.4'
-    jdk 'JDK-8'
-}
-stages {
-  stage('Checkout') {
-    steps {
-      git(url: 'https://github.com/nicolas2lee/nomenclature', credentialsId: 'nicolas2lee', branch: 'master')
-    }
-  }
-  stage('Compile') {
-    steps {
-      withMaven() {
-        sh './mvnw clean compile'
-      }
+    agent any
 
-    }
-  }
-  stage('Test') {
-    steps {
-      withMaven() {
-        sh './mvnw test'
+    stages {
+      stage('Checkout') {
+        steps {
+          git(url: 'https://github.com/nicolas2lee/nomenclature', credentialsId: 'nicolas2lee', branch: 'master')
+        }
       }
+      stage('Compile') {
+        steps {
+          withMaven() {
+            sh './mvnw clean compile'
+          }
 
-    }
-  }
-  stage('Package') {
-    steps {
-      withMaven() {
-        sh './mvnw package -DskipTests'
+        }
       }
+      stage('Test') {
+        steps {
+          withMaven() {
+            sh './mvnw test'
+          }
 
-    }
-  }
-  stage('Quality') {
-    steps {
-      withMaven() {
-        sh './mvnw sonar:sonar -Dsonar.projectKey="nomenclature"\
-            -Dsonar.host.url=http://localhost:9000 \
-            -Dsonar.login=25ba9d58c24285499ea3cc9f98466f5d97a6f061'
+        }
       }
+      stage('Package') {
+        steps {
+          withMaven() {
+            sh './mvnw package -DskipTests'
+          }
 
+        }
+      }
+      stage('Quality') {
+        steps {
+          withMaven() {
+            sh './mvnw sonar:sonar -Dsonar.projectKey="nomenclature"\
+                -Dsonar.host.url=http://localhost:9000 \
+                -Dsonar.login=25ba9d58c24285499ea3cc9f98466f5d97a6f061'
+          }
+
+        }
+      }
     }
-  }
-}
 }
