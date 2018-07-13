@@ -37,7 +37,7 @@
         <ignite.version>2.5.0</ignite.version>
         <stax.version>1.0.1</stax.version>
         <opencsv.version>4.2</opencsv.version>
-        <sonar.version>4.2</sonar.version>
+        <sonar.version>3.4.0.905</sonar.version>
     </properties>
 
     <dependencyManagement>
