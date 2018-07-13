@@ -13,7 +13,7 @@ stages {
   stage('Compile') {
     steps {
       withMaven() {
-        sh 'mvn clean compile'
+        sh './mvnw clean compile'
       }
 
     }
@@ -21,7 +21,7 @@ stages {
   stage('Test') {
     steps {
       withMaven() {
-        sh 'mvn test'
+        sh './mvnw test'
       }
 
     }
@@ -29,7 +29,7 @@ stages {
   stage('Package') {
     steps {
       withMaven() {
-        sh 'mvn package -DskipTests'
+        sh './mvnw package -DskipTests'
       }
 
     }
@@ -37,7 +37,7 @@ stages {
   stage('Quality') {
     steps {
       withMaven() {
-        sh 'mvn sonar:sonar -Dsonar.projectKey="nomenclature"\
+        sh './mvnw sonar:sonar -Dsonar.projectKey="nomenclature"\
             -Dsonar.host.url=http://localhost:9000 \
             -Dsonar.login=25ba9d58c24285499ea3cc9f98466f5d97a6f061'
       }
