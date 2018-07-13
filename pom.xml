@@ -38,6 +38,7 @@
         <stax.version>1.0.1</stax.version>
         <opencsv.version>4.2</opencsv.version>
         <sonar.version>3.4.0.905</sonar.version>
+        <sonar.host.url>http://localhost:9000</sonar.host.url>
     </properties>
 
     <dependencyManagement>
