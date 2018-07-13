@@ -38,7 +38,7 @@ pipeline {
         steps {
           withMaven() {
             sh './mvnw sonar:sonar -Dsonar.projectKey="nomenclature"\
-                -Dsonar.host.url=http://localhost:9000'
+                -Pdocker'
           }
 
         }

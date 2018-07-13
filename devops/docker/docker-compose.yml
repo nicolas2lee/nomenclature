@@ -1,6 +1,7 @@
 version: '3'
 services:
   jenkins:
+    hostname: jenkins
     image: jenkinsci/blueocean
     ports:
       - 9090:8080
@@ -8,6 +9,7 @@ services:
       - devops-network
 
   sonar:
+    hostname: sonar
     image: sonarqube
     ports:
       - 9000:9000

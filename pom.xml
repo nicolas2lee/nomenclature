@@ -17,6 +17,15 @@
         <module>batch</module>
     </modules>
 
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <properties>
+                <sonar.host.url>http://sonar:9000</sonar.host.url>
+            </properties>
+        </profile>
+    </profiles>
+
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -38,7 +47,6 @@
         <stax.version>1.0.1</stax.version>
         <opencsv.version>4.2</opencsv.version>
         <sonar.version>3.4.0.905</sonar.version>
-        <sonar.host.url>http://localhost:9000</sonar.host.url>
     </properties>
 
     <dependencyManagement>
