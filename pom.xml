@@ -37,6 +37,7 @@
         <ignite.version>2.5.0</ignite.version>
         <stax.version>1.0.1</stax.version>
         <opencsv.version>4.2</opencsv.version>
+        <sonar.version>4.2</sonar.version>
     </properties>
 
     <dependencyManagement>
@@ -210,6 +211,10 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -219,6 +224,11 @@
                     <configuration>
                         <failOnMissingWebXml>false</failOnMissingWebXml>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${sonar.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
